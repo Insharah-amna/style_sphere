@@ -29,10 +29,13 @@ class BlogDetailPage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 8),
 
-                  Text(blog.title,
-                    textAlign: .center,
-                    style: Theme.of(context).textTheme.titleLarge!
-                    .copyWith(fontWeight: .w400),
+                  Align(
+                    alignment: .centerLeft,
+                    child: Text(
+                      blog.title,
+                      style: Theme.of(context).textTheme.titleLarge!
+                      .copyWith(fontWeight: .w400),
+                    )
                   ),
 
                   const SizedBox(height: 10),

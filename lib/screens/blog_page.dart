@@ -38,11 +38,11 @@ class BlogPage extends StatelessWidget {
                       height: 11,
                     ),
 
-                    const SizedBox(height: 26),
+                    const SizedBox(height: 28),
 
                     SearchBullets(),
 
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 18),
                   ],
                 ),
               ),
@@ -104,25 +104,36 @@ class BlogPage extends StatelessWidget {
   }
 }
 
-class SearchBullets extends StatelessWidget {
-  var bullets = ['Fashion', 'Promo', 'LookBook'];
+class SearchBullets extends StatefulWidget {
+  const SearchBullets({super.key});
+
+  @override
+  State<SearchBullets> createState() => _SearchBulletsState();
+}
+
+class _SearchBulletsState extends State<SearchBullets> {
+  var bullets = ['Fashion', 'Promo', 'LookBook', 'Policy', 'Trends', 'Summer'];
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: bullets.map((tag) {
-        return GestureDetector(
-          onTap: () {},
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: .circular(.25)
+    return SingleChildScrollView(
+      scrollDirection: .horizontal,
+      child: Row(
+        children: bullets.map((tag) {
+          return GestureDetector(
+            onTap: () {},
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColors.inputBg,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              margin: const EdgeInsets.only(left: 12),
+              child: Text(tag),
             ),
-            padding: EdgeInsetsGeometry.symmetric(horizontal: 10, vertical: 8),
-            child: Text(tag),
-          ),
-        );
-      }).toList(),
+          );
+        }).toList(),
+      ),
     );
   }
 }
