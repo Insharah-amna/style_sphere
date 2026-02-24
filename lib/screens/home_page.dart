@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/widgets/app_bar.dart';
+import 'package:style_sphere/widgets/cart_drawer.dart';
 import 'package:style_sphere/widgets/footer.dart';
 import 'package:style_sphere/widgets/homepage_card.dart';
 import 'package:style_sphere/widgets/homepage_slider.dart';
+import 'package:style_sphere/widgets/menu_drawer.dart';
 import 'package:style_sphere/widgets/product_slider.dart';
 
 class Product {
@@ -55,6 +57,10 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(title: 'HomePage'),
       backgroundColor: AppColors.offWhite,
+
+      drawer: const MenuDrawer(),
+
+      endDrawer: const CartDrawer(),
 
       body: SafeArea(
         child: ListView(
@@ -148,7 +154,7 @@ class HomePage extends StatelessWidget {
                     Image.asset("assets/images/prada.png", width: 70,),
                     const SizedBox(width: 41),
                     Image.asset("assets/images/burberry.png", width: 100,),
-                    const SizedBox(width: 39),
+                    const SizedBox(width: 46),
                     Image.asset("assets/images/hugo_boss.png", width: 50,),
                   ],
                 ),

@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           bodyLarge: TextStyle(fontSize: 16),
           bodyMedium: TextStyle(fontSize: 14),
           bodySmall: TextStyle(fontSize: 12, color: AppColors.label),
-          labelMedium: TextStyle(fontSize: 15),
+          labelMedium: TextStyle(fontSize: 15, color: AppColors.secondary),
         ),
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),

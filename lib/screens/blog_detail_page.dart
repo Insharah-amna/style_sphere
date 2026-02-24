@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/constants/blogs.dart';
 import 'package:style_sphere/widgets/app_bar.dart';
+import 'package:style_sphere/widgets/cart_drawer.dart';
 import 'package:style_sphere/widgets/footer.dart';
+import 'package:style_sphere/widgets/menu_drawer.dart';
 
 class BlogDetailPage extends StatelessWidget {
   const BlogDetailPage({
@@ -17,6 +19,10 @@ class BlogDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(title: "Blog Detail"),
       backgroundColor: AppColors.offWhite,
+
+      drawer: const MenuDrawer(),
+
+      endDrawer: const CartDrawer(),
 
       body: SafeArea(
         child: ListView(

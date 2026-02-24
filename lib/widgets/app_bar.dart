@@ -17,16 +17,15 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColors.offWhite,
-
-      title: Image.asset("assets/images/logo.png", height: 32,),
-
       elevation: 0,
       centerTitle: true,
+
+      title: Image.asset("assets/images/logo.png", height: 32,),
 
       leading: IconButton(
         icon: Image.asset("assets/icons/menu.png", width: 24,),
         onPressed: () {
-          // open drawer
+          Scaffold.of(context).openDrawer();
         },
       ),
 
@@ -39,7 +38,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         if (showCart)
           IconButton(
             icon: Image.asset("assets/icons/shopping_bag.png", width: 24,),
-            onPressed: () {},
+            onPressed: () {
+              Scaffold.of(context).openEndDrawer();
+            },
           ),
       ],
     );

@@ -39,16 +39,24 @@ class _HomepageSliderState extends State<HomepageSlider> {
           builder: (BuildContext context) {
             return Container(
               width: .infinity,
+
               decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage("assets/images/homepage1.png"), fit: .cover)
+                image: DecorationImage(
+                  image: AssetImage("assets/images/homepage1.png"),
+                  fit: .cover
+                ),
               ),
+
               child: Column(
                 children: [
                   const SizedBox(height: 230),
 
                   Text(
                     "LUXURY\n FASHION\n& ACCESSORIES",
-                    style: TextStyle(fontFamily: 'BodoniModa', fontSize: 36, color: Color(0xFF696A6B)),
+                    style: TextStyle(
+                      fontFamily: 'BodoniModa',
+                      fontSize: 36,
+                      color: Color(0xFF696A6B)),
                   ),
 
                   const SizedBox(height: 165),
@@ -61,7 +69,7 @@ class _HomepageSliderState extends State<HomepageSlider> {
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0x66111111),
-                          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 38),
+                          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 34),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
