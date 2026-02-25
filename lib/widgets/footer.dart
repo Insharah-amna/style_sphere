@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:style_sphere/screens/about.dart';
 import 'package:style_sphere/screens/blog_page.dart';
 import 'package:style_sphere/screens/contact_us.dart';
 
@@ -48,9 +49,15 @@ class Footer extends StatelessWidget {
             mainAxisAlignment: .center,
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => About()),
+                  );
+                },
                 child: Text("About", style: TextStyle(color: Colors.black)),
               ),
+
               TextButton(
                 onPressed: () {
                   Navigator.push(
@@ -60,6 +67,7 @@ class Footer extends StatelessWidget {
                 },
                 child: Text("Contact", style: TextStyle(color: Colors.black)),
               ),
+
               TextButton(
                 onPressed: () {
                   Navigator.push(
