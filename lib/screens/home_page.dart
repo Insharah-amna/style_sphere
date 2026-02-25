@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_colors.dart';
+import 'package:style_sphere/screens/products_page.dart';
 import 'package:style_sphere/widgets/app_bar.dart';
 import 'package:style_sphere/widgets/cart_drawer.dart';
 import 'package:style_sphere/widgets/footer.dart';
@@ -119,7 +120,15 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 20),
 
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProductsPage()),
+                      );
+                    },
+                    style: TextButton.styleFrom(
+                      shape: BeveledRectangleBorder(),
+                    ),
                     child: Row(
                       mainAxisAlignment: .center,
                       spacing: 6,
@@ -413,14 +422,14 @@ class FollowCard extends StatelessWidget {
           image: AssetImage(imagePath),
           fit: .cover,
           colorFilter: ColorFilter.mode(
-            Colors.black.withOpacity(0.35),
+            Colors.black.withValues(alpha: 0.3),
             BlendMode.darken,
           ),
         ),
       ),
       child: Align(
         alignment: .bottomLeft,
-        child: Text("@${accName}", style: TextStyle(color: Colors.white),
+        child: Text("@$accName", style: TextStyle(color: Colors.white),
         ),
       ),
     );

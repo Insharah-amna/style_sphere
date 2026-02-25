@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:style_sphere/constants/app_colors.dart';
 
 class MenuDrawer extends StatefulWidget {
@@ -22,12 +23,11 @@ class _MenuDrawerState extends State<MenuDrawer> {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
-
               // CLOSE BUTTON
               Align(
                 alignment: Alignment.centerLeft,
                 child: IconButton(
-                  icon: Image.asset("assets/icons/close.png", width: 24,),
+                  icon: SvgPicture.asset('assets/icons/x.svg', width: 28),
                   onPressed: () => Navigator.pop(context),
                 ),
               ),
@@ -37,11 +37,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
               // TOP TABS
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _tab("WOMEN",0),
-                  _tab("MEN",1),
-                  _tab("KIDS",2),
-                ],
+                children: [_tab("WOMEN", 0), _tab("MEN", 1), _tab("KIDS", 2)],
               ),
 
               const SizedBox(height: 16),
@@ -67,18 +63,24 @@ class _MenuDrawerState extends State<MenuDrawer> {
                 children: [
                   Row(
                     children: [
-                      Image.asset("assets/icons/call.png", width: 24,),
+                      Image.asset("assets/icons/call.png", width: 24),
                       SizedBox(width: 16),
-                      Text("(786) 713-8616", style: TextStyle(fontSize: 16, color: AppColors.label),)
+                      Text(
+                        "(786) 713-8616",
+                        style: TextStyle(fontSize: 16, color: AppColors.label),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 22),
 
                   Row(
                     children: [
-                      Image.asset("assets/icons/location.png", width: 24,),
+                      Image.asset("assets/icons/location.png", width: 24),
                       SizedBox(width: 16),
-                      Text("Store Locator", style: TextStyle(fontSize: 16, color: AppColors.label),)
+                      Text(
+                        "Store Locator",
+                        style: TextStyle(fontSize: 16, color: AppColors.label),
+                      ),
                     ],
                   ),
                 ],
@@ -86,7 +88,11 @@ class _MenuDrawerState extends State<MenuDrawer> {
 
               const SizedBox(height: 40),
 
-              Image.asset("assets/images/decoration_line.png", height: 11, fit: .cover,),
+              Image.asset(
+                "assets/images/decoration_line.png",
+                height: 11,
+                fit: .cover,
+              ),
               const SizedBox(height: 36),
 
               // SOCIAL MEDIA LINKS
@@ -94,9 +100,21 @@ class _MenuDrawerState extends State<MenuDrawer> {
                 spacing: 50,
                 mainAxisAlignment: .center,
                 children: [
-                  Image.asset("assets/images/twitter_filled.png", height: 21, fit: .cover,),
-                  Image.asset("assets/images/instagram_filled.png", height: 21, fit: .cover,),
-                  Image.asset("assets/images/youtube_filled.png", height: 21, fit: .cover,),
+                  Image.asset(
+                    "assets/images/twitter_filled.png",
+                    height: 21,
+                    fit: .cover,
+                  ),
+                  Image.asset(
+                    "assets/images/instagram_filled.png",
+                    height: 21,
+                    fit: .cover,
+                  ),
+                  Image.asset(
+                    "assets/images/youtube_filled.png",
+                    height: 21,
+                    fit: .cover,
+                  ),
                 ],
               ),
 
@@ -108,12 +126,11 @@ class _MenuDrawerState extends State<MenuDrawer> {
     );
   }
 
-
   Widget _tab(String title, int index) {
     bool isSelected = selectedTab == index;
 
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         setState(() {
           selectedTab = index;
         });
@@ -134,21 +151,17 @@ class _MenuDrawerState extends State<MenuDrawer> {
           const SizedBox(height: 10),
 
           // active indicator
-          if(isSelected)
-            Container(
-              height: 1,
-              width: 60,
-              color: AppColors.secondary,
-            )
+          if (isSelected)
+            Container(height: 1, width: 60, color: AppColors.secondary),
         ],
       ),
     );
   }
 }
 
-
 class DrawerItem extends StatelessWidget {
   const DrawerItem({super.key, required this.title});
+
   final String title;
 
   @override
