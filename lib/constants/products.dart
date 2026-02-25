@@ -58,3 +58,34 @@ final List<Product> products = const [
     rating: 4.5,
   ),
 ];
+
+final List<Product> newProducts = const [
+  Product(
+    title: "21WN reversible angora cardigan",
+    description: "Recycle Boucle Knit Cardigan Pink",
+    price: 119.99,
+    image: "assets/images/homepage_card1.png",
+    rating: 4.0,
+  ),
+  Product(
+    title: "Blue Jacket",
+    description: "Recycle Boucle Knit Cardigan Pink",
+    price: 79.99,
+    image: "assets/images/homepage_card2.png",
+    rating: 4.0,
+  ),
+  Product(
+    title: "Sneakers",
+    description: "Recycle Boucle Knit Cardigan Pink",
+    price: 59.99,
+    image: "assets/images/homepage_card3.png",
+    rating: 4.0,
+  ),
+  Product(
+    title: "Oblong bag",
+    description: "Recycle Boucle Knit Cardigan Pink",
+    price: 74.99,
+    image: "assets/images/homepage_card4.png",
+    rating: 4.0,
+  ),
+];

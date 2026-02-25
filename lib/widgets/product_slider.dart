@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:style_sphere/constants/app_colors.dart';
-import 'package:style_sphere/screens/home_page.dart';
+import 'package:style_sphere/constants/products.dart';
 
 class ProductSlider extends StatefulWidget {
   const ProductSlider({super.key});
@@ -15,22 +15,30 @@ class _ProductSliderState extends State<ProductSlider> {
 
   final List<Product> products = const [
     Product(
-      name: "Blue Jacket",
+      title: "Blue Jacket",
+      description: "",
+      rating: 4.0,
       price: 79.99,
       image: "assets/images/homepage_card2.png",
     ),
     Product(
-      name: "Sneakers",
+      title: "Sneakers",
+      description: "",
+      rating: 4.0,
       price: 59.99,
       image: "assets/images/homepage_card3.png",
     ),
     Product(
-      name: "21WN reversible angora cardigan",
+      title: "21WN reversible angora cardigan",
+      description: "",
+      rating: 4.0,
       price: 119.99,
       image: "assets/images/homepage_card1.png",
     ),
     Product(
-      name: "Oblong bag",
+      title: "Oblong bag",
+      description: "",
+      rating: 4.0,
       price: 74.99,
       image: "assets/images/homepage_card4.png",
     ),
@@ -60,13 +68,12 @@ class _ProductSliderState extends State<ProductSlider> {
                   Image.asset(product.image),
                   const SizedBox(height: 2),
 
-                  Text(product.name),
+                  Text(product.title),
 
-                  Text("\$${product.price}",
-                    style: Theme.of(context)
-                      .textTheme
-                      .labelMedium!
-                      .copyWith(color: AppColors.secondary
+                  Text(
+                    "\$${product.price}",
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                      color: AppColors.secondary,
                     ),
                   ),
                 ],
@@ -97,7 +104,7 @@ class _ProductSliderState extends State<ProductSlider> {
               ),
             );
           }).toList(),
-        )
+        ),
       ],
     );
   }
