@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/constants/products.dart';
-import 'package:style_sphere/screens/products_page.dart';
 import 'package:style_sphere/widgets/app_bar.dart';
 import 'package:style_sphere/widgets/cart_drawer.dart';
 import 'package:style_sphere/widgets/footer.dart';
 import 'package:style_sphere/widgets/menu_drawer.dart';
+import 'package:style_sphere/widgets/product_card.dart';
 
 class ProductDetail extends StatefulWidget {
   const ProductDetail({super.key, required this.product});
@@ -74,7 +74,7 @@ class _ProductDetailState extends State<ProductDetail> {
 
             const SizedBox(height: 26),
 
-            // Buy button
+            // Add To Basket button
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
@@ -105,10 +105,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     ],
                   ),
 
-                  Image.asset(
-                    "assets/icons/heart_white_outlined.png",
-                    width: 22,
-                  ),
+                  IsFavourite(isDarkMode: true),
                 ],
               ),
             ),
@@ -188,7 +185,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   ),
                   itemBuilder: (context, index) {
                     final product = products[index];
-                    return ProductCard(product: product);
+                    return ProductGridCard(product: product);
                   },
                 ),
               ),

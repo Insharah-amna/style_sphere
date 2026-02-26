@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/constants/collection.dart';
+import 'package:style_sphere/screens/collection_detail.dart';
 import 'package:style_sphere/widgets/app_bar.dart';
 import 'package:style_sphere/widgets/cart_drawer.dart';
 import 'package:style_sphere/widgets/footer.dart';
@@ -16,7 +17,6 @@ class CollectionScreen extends StatelessWidget {
       backgroundColor: AppColors.darkMode,
 
       drawer: const MenuDrawer(),
-
       endDrawer: const CartDrawer(),
 
       body: SafeArea(
@@ -32,7 +32,6 @@ class CollectionScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 140,
                     color: Color(0x66343434),
-                    fontWeight: .w900,
                     height: 1,
                     fontStyle: .italic,
                     fontFamily: 'BodoniModa',
@@ -104,7 +103,15 @@ class _CollectionCardState extends State<CollectionCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                CollectionDetail(collection: widget.collection),
+          ),
+        );
+      },
       child: Container(
         padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
         decoration: BoxDecoration(color: AppColors.darkMode),
@@ -121,9 +128,7 @@ class _CollectionCardState extends State<CollectionCard> {
               children: [
                 Text(
                   widget.collection.number.toString().padLeft(2, '0'),
-                  style: Theme.of(
-                    context,
-                  ).textTheme.displaySmall!.copyWith(letterSpacing: 2),
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
 
                 Expanded(
