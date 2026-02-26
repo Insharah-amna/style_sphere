@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/constants/products.dart';
+import 'package:style_sphere/screens/product_detail.dart';
 
 class ProductSlider extends StatefulWidget {
   const ProductSlider({super.key});
@@ -12,37 +13,6 @@ class ProductSlider extends StatefulWidget {
 
 class _ProductSliderState extends State<ProductSlider> {
   var _currentIndex = 0;
-
-  final List<Product> products = const [
-    Product(
-      title: "Blue Jacket",
-      description: "",
-      rating: 4.0,
-      price: 79.99,
-      image: "assets/images/homepage_card2.png",
-    ),
-    Product(
-      title: "Sneakers",
-      description: "",
-      rating: 4.0,
-      price: 59.99,
-      image: "assets/images/homepage_card3.png",
-    ),
-    Product(
-      title: "21WN reversible angora cardigan",
-      description: "",
-      rating: 4.0,
-      price: 119.99,
-      image: "assets/images/homepage_card1.png",
-    ),
-    Product(
-      title: "Oblong bag",
-      description: "",
-      rating: 4.0,
-      price: 74.99,
-      image: "assets/images/homepage_card4.png",
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -59,24 +29,34 @@ class _ProductSliderState extends State<ProductSlider> {
               });
             },
           ),
-          items: products.map((product) {
-            return Container(
-              margin: const EdgeInsets.symmetric(horizontal: 8),
-              child: Column(
-                spacing: 3,
-                children: [
-                  Image.asset(product.image),
-                  const SizedBox(height: 2),
-
-                  Text(product.title),
-
-                  Text(
-                    "\$${product.price}",
-                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      color: AppColors.secondary,
-                    ),
+          items: specialProducts.map((product) {
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductDetail(product: product),
                   ),
-                ],
+                );
+              },
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 8),
+                child: Column(
+                  spacing: 3,
+                  children: [
+                    Image.asset(product.image),
+                    const SizedBox(height: 2),
+
+                    Text(product.title),
+
+                    Text(
+                      "\$${product.price}",
+                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        color: AppColors.secondary,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           }).toList(),
@@ -86,7 +66,7 @@ class _ProductSliderState extends State<ProductSlider> {
 
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: products.asMap().entries.map((entry) {
+          children: specialProducts.asMap().entries.map((entry) {
             return Transform.rotate(
               angle: 0.785,
               child: Container(

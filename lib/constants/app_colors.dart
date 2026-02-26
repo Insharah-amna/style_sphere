@@ -11,4 +11,5 @@ class AppColors {
   static const Color offWhite = Color(0xFFFCFCFC);
   static const Color primary = Color(0xFFA8715A);
   static const Color secondary = Color(0xFFDD8560);
+  static const Color darkMode = Color(0xFF111111);
 }

@@ -18,9 +18,15 @@ class MyApp extends StatelessWidget {
         fontFamily: 'TenorSans',
         textTheme: TextTheme(
           displayLarge: TextStyle(fontFamily: 'BodoniModa', fontSize: 40),
+          displaySmall: TextStyle(
+            fontFamily: 'BodoniModa',
+            fontSize: 14,
+            fontWeight: .w400,
+            color: AppColors.offWhite,
+          ),
           titleLarge: TextStyle(fontSize: 18, fontWeight: .bold),
           titleMedium: TextStyle(fontSize: 16, color: AppColors.offWhite),
-          titleSmall: TextStyle(fontSize: 14, color: AppColors.placeholder),
+          titleSmall: TextStyle(fontSize: 13, color: AppColors.placeholder),
           bodyLarge: TextStyle(fontSize: 16),
           bodyMedium: TextStyle(fontSize: 14),
           bodySmall: TextStyle(fontSize: 12, color: AppColors.label),

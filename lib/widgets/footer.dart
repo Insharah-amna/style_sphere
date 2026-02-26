@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/screens/about.dart';
 import 'package:style_sphere/screens/blog_page.dart';
 import 'package:style_sphere/screens/contact_us.dart';
@@ -8,8 +9,10 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: 250,
+      color: AppColors.offWhite,
+
       child: Column(
         children: [
           const Spacer(),

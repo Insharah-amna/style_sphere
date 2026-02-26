@@ -5,25 +5,33 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool showCart;
   final bool showSearch;
+  final bool lightMode;
 
   const MyAppBar({
     super.key,
     required this.title,
     this.showCart = true,
     this.showSearch = true,
+    this.lightMode = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.offWhite,
+      backgroundColor: lightMode ? AppColors.offWhite : AppColors.darkMode,
       elevation: 0,
       centerTitle: true,
 
-      title: Image.asset("assets/images/logo.png", height: 32,),
+      title: Image.asset(
+        lightMode ? "assets/images/logo.png" : "assets/icons/logo_light.png",
+        height: 32,
+      ),
 
       leading: IconButton(
-        icon: Image.asset("assets/icons/menu.png", width: 24,),
+        icon: Image.asset(
+          lightMode ? "assets/icons/menu.png" : "assets/icons/menu_light.png",
+          width: 24,
+        ),
         onPressed: () {
           Scaffold.of(context).openDrawer();
         },
@@ -32,12 +40,22 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         if (showSearch)
           IconButton(
-            icon: Image.asset("assets/icons/search.png", width: 24,),
+            icon: Image.asset(
+              lightMode
+                  ? "assets/icons/search.png"
+                  : "assets/icons/search_light.png",
+              width: 24,
+            ),
             onPressed: () {},
           ),
         if (showCart)
           IconButton(
-            icon: Image.asset("assets/icons/shopping_bag.png", width: 24,),
+            icon: Image.asset(
+              lightMode
+                  ? "assets/icons/shopping_bag.png"
+                  : "assets/icons/cart_light.png",
+              width: 24,
+            ),
             onPressed: () {
               Scaffold.of(context).openEndDrawer();
             },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/constants/products.dart';
+import 'package:style_sphere/screens/collection_screen.dart';
 import 'package:style_sphere/screens/products_page.dart';
 import 'package:style_sphere/widgets/app_bar.dart';
 import 'package:style_sphere/widgets/cart_drawer.dart';
@@ -173,47 +174,62 @@ class HomePage extends StatelessWidget {
 
             const SizedBox(height: 26),
 
-            Image.asset(
-              "assets/images/homepage2.png",
-              width: .infinity,
-              fit: .cover,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CollectionScreen()),
+                );
+              },
+              child: Image.asset(
+                "assets/images/homepage2.png",
+                width: .infinity,
+                fit: .cover,
+              ),
             ),
 
             const SizedBox(height: 40),
 
             // Autumn collection
-            Container(
-              height: 296,
-              margin: EdgeInsetsGeometry.symmetric(horizontal: 58),
-              padding: EdgeInsetsGeometry.symmetric(
-                horizontal: 22,
-                vertical: 36,
-              ),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/homepage3.png"),
-                  fit: .cover,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CollectionScreen()),
+                );
+              },
+              child: Container(
+                height: 296,
+                margin: EdgeInsetsGeometry.symmetric(horizontal: 58),
+                padding: EdgeInsetsGeometry.symmetric(
+                  horizontal: 22,
+                  vertical: 36,
+                ),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/homepage3.png"),
+                    fit: .cover,
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: .end,
+                  children: [
+                    Text(
+                      "Autumn",
+                      style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                        color: Color(0xBB111111),
+                      ),
+                    ),
+                    Text(
+                      "   COLLECTION",
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall!.copyWith(letterSpacing: 4),
+                    ),
+                  ],
                 ),
               ),
-              child: Column(
-                crossAxisAlignment: .end,
-                children: [
-                  Text(
-                    "Autumn",
-                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      color: Color(0xBB111111),
-                    ),
-                  ),
-                  Text(
-                    "   COLLECTION",
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodySmall!.copyWith(letterSpacing: 4),
-                  ),
-                ],
-              ),
             ),
-
             const SizedBox(height: 40),
 
             // video
