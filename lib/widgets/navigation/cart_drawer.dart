@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/constants/dummy_cart.dart';
+import 'package:style_sphere/screens/checkout/checkout_screen.dart';
 
 class CartDrawer extends StatefulWidget {
   const CartDrawer({super.key});
@@ -47,45 +48,48 @@ class _CartDrawerState extends State<CartDrawer> {
               ),
             ),
 
-            Padding(
-              padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
-              child: cartItems.isEmpty
-                  ? Column(
-                      children: [
-                        const SizedBox(height: 300),
-                        Center(
-                          child: Text(
-                            "You have no items in your Shopping Bag.",
-                            style: Theme.of(context).textTheme.bodyLarge!
-                                .copyWith(color: AppColors.placeholder),
+            const SizedBox(height: 8),
+
+            Expanded(
+              child: Padding(
+                padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
+                child: cartItems.isEmpty
+                    ? Column(
+                        children: [
+                          const SizedBox(height: 300),
+                          Center(
+                            child: Text(
+                              "You have no items in your Shopping Bag.",
+                              style: Theme.of(context).textTheme.bodyLarge!
+                                  .copyWith(color: AppColors.placeholder),
+                            ),
                           ),
-                        ),
-                      ],
-                    )
-                  : Column(
-                      children: [
-                        const SizedBox(height: 16),
+                        ],
+                      )
+                    : ListView.builder(
+                        // shrinkWrap: true,
+                        itemCount: cartItems.length,
+                        itemBuilder: (context, index) {
+                          final item = cartItems[index];
 
-                        ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: cartItems.length,
-                          itemBuilder: (context, index) {
-                            final item = cartItems[index];
-
-                            return Padding(
-                              padding: EdgeInsetsGeometry.only(bottom: 16),
-                              child: CartItem(item: item),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                          return Padding(
+                            padding: EdgeInsetsGeometry.only(bottom: 16),
+                            child: CartItem(item: item),
+                          );
+                        },
+                      ),
+              ),
             ),
 
-            const Spacer(),
+            const SizedBox(height: 12),
 
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CheckoutScreen()),
+                );
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
                 padding: EdgeInsetsGeometry.symmetric(vertical: 16),
