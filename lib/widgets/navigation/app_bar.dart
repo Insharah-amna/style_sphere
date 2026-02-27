@@ -3,17 +3,9 @@ import 'package:style_sphere/constants/app_colors.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final bool showCart;
-  final bool showSearch;
   final bool lightMode;
 
-  const MyAppBar({
-    super.key,
-    required this.title,
-    this.showCart = true,
-    this.showSearch = true,
-    this.lightMode = true,
-  });
+  const MyAppBar({super.key, required this.title, this.lightMode = true});
 
   @override
   Widget build(BuildContext context) {
@@ -38,28 +30,26 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
 
       actions: [
-        if (showSearch)
-          IconButton(
-            icon: Image.asset(
-              lightMode
-                  ? "assets/icons/search.png"
-                  : "assets/icons/search_light.png",
-              width: 24,
-            ),
-            onPressed: () {},
+        // IconButton(
+        //   icon: Image.asset(
+        //     lightMode
+        //         ? "assets/icons/search.png"
+        //         : "assets/icons/search_light.png",
+        //     width: 24,
+        //   ),
+        //   onPressed: () {},
+        // ),
+        IconButton(
+          icon: Image.asset(
+            lightMode
+                ? "assets/icons/shopping_bag.png"
+                : "assets/icons/cart_light.png",
+            width: 24,
           ),
-        if (showCart)
-          IconButton(
-            icon: Image.asset(
-              lightMode
-                  ? "assets/icons/shopping_bag.png"
-                  : "assets/icons/cart_light.png",
-              width: 24,
-            ),
-            onPressed: () {
-              Scaffold.of(context).openEndDrawer();
-            },
-          ),
+          onPressed: () {
+            Scaffold.of(context).openEndDrawer();
+          },
+        ),
       ],
     );
   }

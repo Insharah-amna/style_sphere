@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_colors.dart';
-import 'package:style_sphere/widgets/app_bar.dart';
-import 'package:style_sphere/widgets/cart_drawer.dart';
-import 'package:style_sphere/widgets/footer.dart';
-import 'package:style_sphere/widgets/menu_drawer.dart';
+import 'package:style_sphere/widgets/navigation/app_bar.dart';
+import 'package:style_sphere/widgets/navigation/cart_drawer.dart';
+import 'package:style_sphere/widgets/navigation/footer.dart';
+import 'package:style_sphere/widgets/navigation/menu_drawer.dart';
 
 class ContactUs extends StatelessWidget {
   const ContactUs({super.key});

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/constants/products.dart';
-import 'package:style_sphere/widgets/app_bar.dart';
-import 'package:style_sphere/widgets/cart_drawer.dart';
-import 'package:style_sphere/widgets/footer.dart';
-import 'package:style_sphere/widgets/menu_drawer.dart';
+import 'package:style_sphere/widgets/navigation/app_bar.dart';
+import 'package:style_sphere/widgets/navigation/cart_drawer.dart';
+import 'package:style_sphere/widgets/navigation/footer.dart';
+import 'package:style_sphere/widgets/navigation/menu_drawer.dart';
 import 'package:style_sphere/widgets/pagination.dart';
-import 'package:style_sphere/widgets/product_card.dart';
+import 'package:style_sphere/widgets/products/product_card.dart';
 
 class ProductsPage extends StatefulWidget {
   const ProductsPage({super.key});
@@ -31,8 +31,27 @@ class _ProductsPageState extends State<ProductsPage> {
       body: SafeArea(
         child: Column(
           children: [
-            const SizedBox(height: 14),
+            const SizedBox(height: 4),
 
+            // Search Field
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: "Search products",
+                  focusColor: AppColors.primary,
+                  hintStyle: TextStyle(color: AppColors.label, fontSize: 14),
+                  suffixIcon: IconButton(
+                    icon: Image.asset("assets/icons/search.png", width: 24),
+                    onPressed: () {},
+                  ),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            // Search result & Filter option
             Padding(
               padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
               child: Row(

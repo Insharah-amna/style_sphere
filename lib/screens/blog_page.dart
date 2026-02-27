@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/constants/blogs.dart';
-import 'package:style_sphere/widgets/app_bar.dart';
-import 'package:style_sphere/widgets/blog_card.dart';
-import 'package:style_sphere/widgets/cart_drawer.dart';
-import 'package:style_sphere/widgets/footer.dart';
-import 'package:style_sphere/widgets/menu_drawer.dart';
+import 'package:style_sphere/widgets/navigation/app_bar.dart';
+import 'package:style_sphere/widgets/blog/blog_card.dart';
+import 'package:style_sphere/widgets/navigation/cart_drawer.dart';
+import 'package:style_sphere/widgets/navigation/footer.dart';
+import 'package:style_sphere/widgets/navigation/menu_drawer.dart';
 
 class BlogPage extends StatelessWidget {
   const BlogPage({super.key});
@@ -23,7 +23,6 @@ class BlogPage extends StatelessWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-
             /// HEADER
             SliverToBoxAdapter(
               child: Column(
@@ -33,16 +32,15 @@ class BlogPage extends StatelessWidget {
                   Text(
                     "BLOG",
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleLarge!
-                        .copyWith(letterSpacing: 4, fontWeight: FontWeight.w400),
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      letterSpacing: 4,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
 
                   const SizedBox(height: 2),
 
-                  Image.asset(
-                    "assets/images/decoration_line.png",
-                    height: 11,
-                  ),
+                  Image.asset("assets/images/decoration_line.png", height: 11),
 
                   const SizedBox(height: 28),
 
@@ -55,31 +53,33 @@ class BlogPage extends StatelessWidget {
 
             /// BLOG LIST
             SliverList(
-              delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                  final blog = blogs[index];
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final blog = blogs[index];
 
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    child: BlogCard(blog: blog),
-                  );
-                },
-                childCount: blogs.length,
-              ),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
+                  child: BlogCard(blog: blog),
+                );
+              }, childCount: blogs.length),
             ),
 
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.only(left: 70, right: 70, top: 35, bottom: 25),
+                padding: const EdgeInsets.only(
+                  left: 70,
+                  right: 70,
+                  top: 35,
+                  bottom: 25,
+                ),
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsetsGeometry.symmetric(vertical: 16),
                     elevation: 0,
-                    side: BorderSide(
-                      color: Colors.grey,
-                      width: 0.5,
-                    ),
+                    side: BorderSide(color: Colors.grey, width: 0.5),
                     shape: BeveledRectangleBorder(),
                     backgroundColor: AppColors.offWhite,
                   ),
@@ -88,11 +88,12 @@ class BlogPage extends StatelessWidget {
                     children: [
                       Text(
                         "LOAD MORE",
-                        style: Theme.of(context).textTheme.titleLarge!
-                        .copyWith(fontWeight: .w400)
+                        style: Theme.of(
+                          context,
+                        ).textTheme.titleLarge!.copyWith(fontWeight: .w400),
                       ),
                       SizedBox(width: 18),
-                      Image.asset("assets/icons/add.png", width: 18,)
+                      Image.asset("assets/icons/add.png", width: 18),
                     ],
                   ),
                 ),
@@ -100,9 +101,7 @@ class BlogPage extends StatelessWidget {
             ),
 
             /// FOOTER
-            SliverToBoxAdapter(
-              child: const Footer(),
-            ),
+            SliverToBoxAdapter(child: const Footer()),
           ],
         ),
       ),

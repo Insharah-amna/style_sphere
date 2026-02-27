@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/constants/blogs.dart';
-import 'package:style_sphere/widgets/app_bar.dart';
-import 'package:style_sphere/widgets/cart_drawer.dart';
-import 'package:style_sphere/widgets/footer.dart';
-import 'package:style_sphere/widgets/menu_drawer.dart';
+import 'package:style_sphere/widgets/navigation/app_bar.dart';
+import 'package:style_sphere/widgets/navigation/cart_drawer.dart';
+import 'package:style_sphere/widgets/navigation/footer.dart';
+import 'package:style_sphere/widgets/navigation/menu_drawer.dart';
 
 class BlogDetailPage extends StatelessWidget {
-  const BlogDetailPage({
-    super.key,
-    required this.blog
-  });
+  const BlogDetailPage({super.key, required this.blog});
 
   final Blog blog;
 
@@ -27,7 +24,7 @@ class BlogDetailPage extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
-            Image.asset(blog.image, width: .infinity, fit: .cover,),
+            Image.asset(blog.image, width: .infinity, fit: .cover),
 
             Padding(
               padding: EdgeInsetsGeometry.symmetric(horizontal: 18),
@@ -39,9 +36,10 @@ class BlogDetailPage extends StatelessWidget {
                     alignment: .centerLeft,
                     child: Text(
                       blog.title,
-                      style: Theme.of(context).textTheme.titleLarge!
-                      .copyWith(fontWeight: .w400),
-                    )
+                      style: Theme.of(
+                        context,
+                      ).textTheme.titleLarge!.copyWith(fontWeight: .w400),
+                    ),
                   ),
 
                   const SizedBox(height: 10),
@@ -56,11 +54,10 @@ class BlogDetailPage extends StatelessWidget {
                   const SizedBox(height: 40),
                   Align(
                     alignment: .centerLeft,
-                    child:
-                      Text(
-                        "Posted By OpenFashion | ${blog.timeStamp}",
-                        style: Theme.of(context).textTheme.titleSmall
-                      ),
+                    child: Text(
+                      "Posted By OpenFashion | ${blog.timeStamp}",
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
                   ),
                 ],
               ),
