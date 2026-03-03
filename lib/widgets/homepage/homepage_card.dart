@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_colors.dart';
+import 'package:style_sphere/constants/app_routes.dart';
 import 'package:style_sphere/constants/products.dart';
-import 'package:style_sphere/screens/product_detail.dart';
 
 class HomepageCard extends StatefulWidget {
   const HomepageCard({super.key, required this.product});
@@ -17,11 +17,10 @@ class _HomepageCardState extends State<HomepageCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(
-            builder: (context) => ProductDetail(product: widget.product),
-          ),
+          AppRoutes.productsDetail,
+          arguments: widget.product,
         );
       },
       child: Column(

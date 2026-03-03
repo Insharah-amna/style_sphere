@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_colors.dart';
-import 'package:style_sphere/screens/about.dart';
-import 'package:style_sphere/screens/blog_page.dart';
-import 'package:style_sphere/screens/contact_us.dart';
+import 'package:style_sphere/constants/app_routes.dart';
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
@@ -53,30 +51,21 @@ class Footer extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => About()),
-                  );
+                  Navigator.pushNamed(context, AppRoutes.about);
                 },
                 child: Text("About", style: TextStyle(color: Colors.black)),
               ),
 
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ContactUs()),
-                  );
+                  Navigator.pushNamed(context, AppRoutes.contact);
                 },
                 child: Text("Contact", style: TextStyle(color: Colors.black)),
               ),
 
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => BlogPage()),
-                  );
+                  Navigator.pushNamed(context, AppRoutes.blog);
                 },
                 child: Text("Blog", style: TextStyle(color: Colors.black)),
               ),

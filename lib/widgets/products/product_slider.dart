@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:style_sphere/constants/app_colors.dart';
+import 'package:style_sphere/constants/app_routes.dart';
 import 'package:style_sphere/constants/products.dart';
-import 'package:style_sphere/screens/product_detail.dart';
 
 class ProductSlider extends StatefulWidget {
   const ProductSlider({super.key});
@@ -32,11 +32,10 @@ class _ProductSliderState extends State<ProductSlider> {
           items: specialProducts.map((product) {
             return GestureDetector(
               onTap: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => ProductDetail(product: product),
-                  ),
+                  AppRoutes.productsDetail,
+                  arguments: product,
                 );
               },
               child: Container(

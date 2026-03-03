@@ -5,8 +5,8 @@ import 'package:style_sphere/widgets/navigation/cart_drawer.dart';
 import 'package:style_sphere/widgets/navigation/footer.dart';
 import 'package:style_sphere/widgets/navigation/menu_drawer.dart';
 
-class ContactUs extends StatelessWidget {
-  const ContactUs({super.key});
+class ContactUsPage extends StatelessWidget {
+  const ContactUsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

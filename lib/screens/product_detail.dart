@@ -8,15 +8,21 @@ import 'package:style_sphere/widgets/navigation/menu_drawer.dart';
 import 'package:style_sphere/widgets/products/product_card.dart';
 
 class ProductDetail extends StatefulWidget {
-  const ProductDetail({super.key, required this.product});
-
-  final Product product;
+  const ProductDetail({super.key});
 
   @override
   State<ProductDetail> createState() => _ProductDetailState();
 }
 
 class _ProductDetailState extends State<ProductDetail> {
+  late Product product;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    product = ModalRoute.of(context)!.settings.arguments as Product;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +44,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 horizontal: 16,
                 vertical: 10,
               ),
-              child: Image.asset(widget.product.image, width: 340, fit: .cover),
+              child: Image.asset(product.image, width: 340, fit: .cover),
             ),
 
             const SizedBox(height: 20),
@@ -51,21 +57,21 @@ class _ProductDetailState extends State<ProductDetail> {
                 spacing: 2,
                 children: [
                   Text(
-                    widget.product.title.toUpperCase(),
+                    product.title.toUpperCase(),
                     style: Theme.of(
                       context,
                     ).textTheme.bodyLarge!.copyWith(letterSpacing: 4),
                   ),
 
                   Text(
-                    widget.product.description,
+                    product.description,
                     style: Theme.of(
                       context,
                     ).textTheme.bodyLarge!.copyWith(color: AppColors.label),
                   ),
 
                   Text(
-                    "\$${widget.product.price}",
+                    "\$${product.price}",
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
                 ],

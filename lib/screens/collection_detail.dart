@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:style_sphere/constants/app_routes.dart';
 import 'package:style_sphere/widgets/navigation/app_bar.dart';
 import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/widgets/navigation/cart_drawer.dart';
@@ -9,12 +10,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:style_sphere/widgets/navigation/footer.dart';
 
 class CollectionDetail extends StatelessWidget {
-  const CollectionDetail({super.key, required this.collection});
-
-  final Collection collection;
+  const CollectionDetail({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final collection = ModalRoute.of(context)!.settings.arguments as Collection;
+
     return Scaffold(
       appBar: MyAppBar(title: 'Collection Detail Page', lightMode: false),
       backgroundColor: AppColors.darkMode,
@@ -156,11 +157,10 @@ class _CollectionSliderState extends State<CollectionSlider> {
       items: collections.map((collection) {
         return GestureDetector(
           onTap: () {
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(
-                builder: (context) => CollectionDetail(collection: collection),
-              ),
+              AppRoutes.collectionDetail,
+              arguments: collection,
             );
           },
           child: Container(

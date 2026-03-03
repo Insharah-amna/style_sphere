@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_colors.dart';
+import 'package:style_sphere/constants/app_routes.dart';
 import 'package:style_sphere/constants/products.dart';
-import 'package:style_sphere/screens/product_detail.dart';
 
 // Product Grid Card
 class ProductGridCard extends StatefulWidget {
@@ -25,11 +25,10 @@ class _ProductGridCardState extends State<ProductGridCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(
-            builder: (context) => ProductDetail(product: widget.product),
-          ),
+          AppRoutes.productsDetail,
+          arguments: widget.product,
         );
       },
       child: Column(
@@ -127,11 +126,10 @@ class _ProductListCardState extends State<ProductListCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(
-            builder: (context) => ProductDetail(product: widget.product),
-          ),
+          AppRoutes.productsDetail,
+          arguments: widget.product,
         );
       },
       child: Row(

@@ -7,12 +7,12 @@ import 'package:style_sphere/widgets/navigation/footer.dart';
 import 'package:style_sphere/widgets/navigation/menu_drawer.dart';
 
 class BlogDetailPage extends StatelessWidget {
-  const BlogDetailPage({super.key, required this.blog});
-
-  final Blog blog;
+  const BlogDetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final blog = ModalRoute.of(context)!.settings.arguments as Blog;
+
     return Scaffold(
       appBar: MyAppBar(title: "Blog Detail"),
       backgroundColor: AppColors.offWhite,

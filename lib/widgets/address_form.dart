@@ -7,10 +7,12 @@ class AddressForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
 
-    return Form(
-      key: _formKey,
-      child: Padding(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
+    return Padding(
+      padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
+      child: Form(
+        key: _formKey,
+        // child: Padding(
+        //   padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
         child: Column(
           spacing: 16,
           children: [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_colors.dart';
+import 'package:style_sphere/constants/app_routes.dart';
 import 'package:style_sphere/constants/collection.dart';
-import 'package:style_sphere/screens/collection_detail.dart';
 import 'package:style_sphere/widgets/navigation/app_bar.dart';
 import 'package:style_sphere/widgets/navigation/cart_drawer.dart';
 import 'package:style_sphere/widgets/navigation/footer.dart';
@@ -104,12 +104,10 @@ class _CollectionCardState extends State<CollectionCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(
-            builder: (context) =>
-                CollectionDetail(collection: widget.collection),
-          ),
+          AppRoutes.collectionDetail,
+          arguments: widget.collection,
         );
       },
       child: Container(

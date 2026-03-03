@@ -4,8 +4,8 @@ import 'package:style_sphere/widgets/navigation/app_bar.dart';
 import 'package:style_sphere/widgets/navigation/cart_drawer.dart';
 import 'package:style_sphere/widgets/navigation/menu_drawer.dart';
 
-class About extends StatelessWidget {
-  const About({super.key});
+class AboutScreen extends StatelessWidget {
+  const AboutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
