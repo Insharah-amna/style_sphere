@@ -1,208 +1,228 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:style_sphere/constants/app_colors.dart';
-import 'package:style_sphere/widgets/address_form.dart';
+import 'package:style_sphere/models/users.dart';
+import 'package:style_sphere/repositories/user_repository.dart';
 import 'package:style_sphere/widgets/navigation/app_bar.dart';
-import 'package:style_sphere/widgets/navigation/cart_drawer.dart';
-import 'package:style_sphere/widgets/navigation/menu_drawer.dart';
-// import 'package:style_sphere/widgets/payment_success_dialog.dart';
 
-class AddAddressScreen extends StatelessWidget {
+class AddAddressScreen extends StatefulWidget {
   const AddAddressScreen({super.key});
 
-  void showPaymentSuccessDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false, // user cannot tap outside to dismiss
-      builder: (context) {
-        return Dialog(
-          shape: BeveledRectangleBorder(),
-          backgroundColor: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Close button
-                Align(
-                  alignment: Alignment.topRight,
-                  child: GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: const Icon(Icons.close),
-                  ),
-                ),
+  @override
+  State<AddAddressScreen> createState() => _AddAddressScreenState();
+}
 
-                const SizedBox(height: 8),
+class _AddAddressScreenState extends State<AddAddressScreen> {
+  final UserRepository _userRepository = UserRepository();
+  final _formKey = GlobalKey<FormState>();
 
-                // Header
-                const Text(
-                  "PAYMENT SUCCESS",
-                  style: TextStyle(letterSpacing: 3, fontSize: 18),
-                ),
+  // Form controllers
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _addressLineController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController();
 
-                const SizedBox(height: 28),
+  bool _isSaving = false;
 
-                // Success icon
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: AppColors.primary, width: 2),
-                  ),
-                  child: const Icon(Icons.check, color: Colors.brown, size: 32),
-                ),
+  @override
+  void dispose() {
+    _phoneController.dispose();
+    _addressLineController.dispose();
+    _cityController.dispose();
+    _countryController.dispose();
+    super.dispose();
+  }
 
-                const SizedBox(height: 28),
+  Future<void> _updateUserAddress() async {
+    // Validate form
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
 
-                // Payment info
-                const Text(
-                  "Your payment was success",
-                  style: TextStyle(fontSize: 16),
-                ),
+    // Check if user is logged in
+    final userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId == null) {
+      _showMsg('Please login to add address');
+      return;
+    }
 
-                const SizedBox(height: 4),
+    setState(() {
+      _isSaving = true;
+    });
 
-                const Text(
-                  "Payment ID 15263541",
-                  style: TextStyle(fontSize: 14, color: AppColors.label),
-                ),
+    try {
+      // Get current user data
+      final currentUser = await _userRepository.getUser(userId);
 
-                const SizedBox(height: 16),
+      if (currentUser == null) {
+        throw Exception('User not found');
+      }
 
-                Image.asset("assets/images/decoration_line.png", height: 10),
+      // Create address object
+      final address = Address(
+        street: _addressLineController.text.trim(),
+        city: _cityController.text.trim(),
+        country: _countryController.text.trim(),
+      );
 
-                const SizedBox(height: 16),
+      // Prepare updates
+      final updates = <String, dynamic>{
+        'phone': _phoneController.text.trim(),
+        'address': address.toMap(),
+      };
 
-                // Rate your purchase
-                const Text(
-                  "Rate your purchase",
-                  style: TextStyle(fontSize: 18),
-                ),
-                const SizedBox(height: 4),
+      // Update user in Firestore
+      await _userRepository.updateUser(userId, updates);
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.sentiment_dissatisfied_outlined,
-                        color: Color(0xaaA8715A),
-                        size: 30,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.sentiment_satisfied_outlined,
-                        color: Color(0xaaA8715A),
-                        size: 30,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.sentiment_very_satisfied_outlined,
-                        color: Color(0xaaA8715A),
-                        size: 30,
-                      ),
-                    ),
-                  ],
-                ),
+      if (mounted) {
+        _showMsg('Address saved successfully!');
 
-                const SizedBox(height: 30),
+        // Wait a moment to show success message, then go back
+        await Future.delayed(const Duration(seconds: 1));
 
-                // Buttons
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsetsGeometry.symmetric(vertical: 10),
-                          shape: BeveledRectangleBorder(),
-                          backgroundColor: Colors.black,
-                          foregroundColor: Colors.white,
-                        ),
-                        child: const Text("SUBMIT"),
-                      ),
-                    ),
+        if (mounted) {
+          Navigator.pop(context, true); // Return true to indicate success
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        _showMsg('Failed to save address: ${e.toString()}');
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isSaving = false;
+        });
+      }
+    }
+  }
 
-                    const SizedBox(width: 10),
-
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsetsGeometry.symmetric(vertical: 10),
-                          shape: BeveledRectangleBorder(),
-                        ),
-                        child: const Text(
-                          "BACK TO HOME",
-                          style: TextStyle(fontSize: 14, color: Colors.black),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
+  void _showMsg(String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: 'Add Address Screen'),
+      appBar: const MyAppBar(title: 'Add Shipping Address'),
       backgroundColor: AppColors.offWhite,
-
-      drawer: const MenuDrawer(),
-      endDrawer: const CartDrawer(),
-
       body: SafeArea(
         child: Column(
           children: [
             const SizedBox(height: 20),
 
             Text(
-              "ADD SHIPPING ADDRESS",
+              'ADD SHIPPING ADDRESS',
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 letterSpacing: 4,
-                fontWeight: .w400,
+                fontWeight: FontWeight.w400,
               ),
             ),
 
             const SizedBox(height: 2),
 
-            Image.asset("assets/images/decoration_line.png", height: 11),
+            Image.asset('assets/images/decoration_line.png', height: 11),
 
             const SizedBox(height: 16),
 
-            Expanded(child: AddressForm()),
+            // Address Form
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      // Phone Number Field
+                      TextFormField(
+                        controller: _phoneController,
+                        decoration: const InputDecoration(
+                          labelText: 'Phone number',
+                        ),
+                        keyboardType: TextInputType.phone,
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Please enter your phone number';
+                          }
+                          if (value.trim().length < 10) {
+                            return 'Please enter a valid phone number';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
 
-            // Add New Address
+                      // Address Line
+                      TextFormField(
+                        controller: _addressLineController,
+                        decoration: const InputDecoration(
+                          labelText: 'Street address',
+                        ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Please enter your address';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+
+                      // City
+                      TextFormField(
+                        controller: _cityController,
+                        decoration: const InputDecoration(labelText: 'City'),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Please enter your city';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Country
+                      TextFormField(
+                        controller: _countryController,
+                        decoration: const InputDecoration(labelText: 'Country'),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Please enter your country';
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            // Add New Address Button
             ElevatedButton(
-              onPressed: () {
-                showPaymentSuccessDialog(context);
-              },
+              onPressed: _isSaving ? null : _updateUserAddress,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
-                padding: EdgeInsetsGeometry.symmetric(vertical: 16),
-                shape: BeveledRectangleBorder(),
+                minimumSize: const Size(double.infinity, 50),
+                padding: const EdgeInsetsGeometry.symmetric(vertical: 16),
+                shape: const BeveledRectangleBorder(),
               ),
-              child: Row(
-                mainAxisAlignment: .center,
-                children: [
-                  Text(
-                    "ADD NOW",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ],
-              ),
+              child: _isSaving
+                  ? const SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    )
+                  : Text(
+                      'ADD NOW',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.titleMedium?.copyWith(color: Colors.white),
+                    ),
             ),
           ],
         ),

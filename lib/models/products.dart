@@ -1,4 +1,5 @@
 class Product {
+  final String id;
   final String imageUrl;
   final String name;
   final String description;
@@ -9,6 +10,7 @@ class Product {
   final int discount;
 
   const Product({
+    required this.id,
     required this.imageUrl,
     required this.name,
     required this.description,

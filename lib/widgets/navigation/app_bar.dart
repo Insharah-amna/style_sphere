@@ -15,13 +15,13 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
 
       title: Image.asset(
-        lightMode ? "assets/images/logo.png" : "assets/icons/logo_light.png",
+        lightMode ? 'assets/images/logo.png' : 'assets/icons/logo_light.png',
         height: 32,
       ),
 
       leading: IconButton(
         icon: Image.asset(
-          lightMode ? "assets/icons/menu.png" : "assets/icons/menu_light.png",
+          lightMode ? 'assets/icons/menu.png' : 'assets/icons/menu_light.png',
           width: 24,
         ),
         onPressed: () {
@@ -30,20 +30,11 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
 
       actions: [
-        // IconButton(
-        //   icon: Image.asset(
-        //     lightMode
-        //         ? "assets/icons/search.png"
-        //         : "assets/icons/search_light.png",
-        //     width: 24,
-        //   ),
-        //   onPressed: () {},
-        // ),
         IconButton(
           icon: Image.asset(
             lightMode
-                ? "assets/icons/shopping_bag.png"
-                : "assets/icons/cart_light.png",
+                ? 'assets/icons/shopping_bag.png'
+                : 'assets/icons/cart_light.png',
             width: 24,
           ),
           onPressed: () {
@@ -55,5 +46,5 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

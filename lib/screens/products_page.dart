@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:style_sphere/constants/app_colors.dart';
@@ -7,11 +6,6 @@ import 'package:style_sphere/widgets/navigation/cart_drawer.dart';
 import 'package:style_sphere/widgets/navigation/menu_drawer.dart';
 import 'package:style_sphere/widgets/pagination.dart';
 import 'package:style_sphere/widgets/products/products_grid.dart';
-
-final Query products = FirebaseFirestore.instance
-    .collection('products')
-    .where('category', whereNotIn: ['October'])
-    .limit(10);
 
 class ProductsPage extends StatefulWidget {
   const ProductsPage({super.key});

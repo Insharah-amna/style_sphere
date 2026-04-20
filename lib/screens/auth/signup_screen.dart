@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_routes.dart';
+import 'package:style_sphere/models/users.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -18,13 +20,26 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
 
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
   Future<void> _signup() async {
+    final name = _nameController.text.trim();
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
     final confirmPassword = _confirmPasswordController.text.trim();
 
-    // ✅ Step 2: Local validation before hitting Firebase
-    if (email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+    // Step 1: Form validation
+    if (name.isEmpty ||
+        email.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty) {
       _showError('All fields are required.');
       return;
     }
@@ -41,13 +56,33 @@ class _SignupScreenState extends State<SignupScreen> {
       return;
     }
 
-    // ✅ Step 3: Firebase signup with switch-case error handling
+    // Step 2: Firebase signup with error handling
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      UserCredential credential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      if (!mounted) return;
+
       // If successful
+      final uid = credential.user!.uid;
+
+      // Create user document in Firestore
+      final user = UserModel(
+        id: uid,
+        name: name,
+        email: email,
+        phone: null,
+        address: null,
+        roles: 'customer',
+        cart: {},
+      );
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .set(user.toMap());
+      if (!mounted) return;
+      // return user;
+
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text('Signup successful')));

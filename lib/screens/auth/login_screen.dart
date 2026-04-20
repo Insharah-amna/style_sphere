@@ -31,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+      if (!mounted) return;
 
       // if successful
       Navigator.pushNamed(context, AppRoutes.home);
@@ -49,6 +50,8 @@ class _LoginScreenState extends State<LoginScreen> {
         default:
           message = 'Login failed: ${e.message}';
       }
+
+      if (!mounted) return;
 
       ScaffoldMessenger.of(
         context,

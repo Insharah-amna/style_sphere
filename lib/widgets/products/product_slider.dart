@@ -16,8 +16,10 @@ Future<List<Product>> fetchProducts() async {
 
   return snapshot.docs.map((doc) {
     final data = doc.data() as Map<String, dynamic>;
+    final id = data['id'] ?? doc.id;
 
     return Product(
+      id: id,
       name: data['name'] ?? '',
       price: (data['price'] as num?)?.toDouble() ?? 0.0,
       imageUrl: data['imageUrl'] ?? '',
