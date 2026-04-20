@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1056560713576",
+    "project_id": "style-sphere-d713e",
+    "storage_bucket": "style-sphere-d713e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056560713576:android:1d9fdc493c280aa490d0dd",
+        "android_client_info": {
+          "package_name": "com.example.style_sphere"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB64eniTIFaI8VGmcjIaqf2vuFKh7F2alY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

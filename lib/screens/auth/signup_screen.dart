@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_routes.dart';
 
@@ -11,11 +12,73 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
       TextEditingController();
+
+  Future<void> _signup() async {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+    final confirmPassword = _confirmPasswordController.text.trim();
+
+    // ✅ Step 2: Local validation before hitting Firebase
+    if (email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+      _showError('All fields are required.');
+      return;
+    }
+    if (!email.contains('@')) {
+      _showError('Please enter a valid email address.');
+      return;
+    }
+    if (password != confirmPassword) {
+      _showError('Passwords do not match.');
+      return;
+    }
+    if (password.length < 6) {
+      _showError('Password must be at least 6 characters long.');
+      return;
+    }
+
+    // ✅ Step 3: Firebase signup with switch-case error handling
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      // If successful
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Signup successful')));
+
+      Navigator.pushNamed(context, AppRoutes.login);
+    } on FirebaseAuthException catch (e) {
+      String message;
+      switch (e.code) {
+        case 'invalid-email':
+          message = 'The email address is not valid.';
+          break;
+        case 'email-already-in-use':
+          message = 'This email is already registered.';
+          break;
+        case 'weak-password':
+          message = 'Password is too weak.';
+          break;
+        default:
+          message = 'Signup failed: ${e.message}';
+      }
+      _showError(message);
+    } catch (e) {
+      _showError('Unexpected error: $e');
+    }
+  }
+
+  void _showError(String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +100,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                   /// Name
                   TextFormField(
-                    controller: nameController,
+                    controller: _nameController,
                     decoration: const InputDecoration(labelText: 'Full Name'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -51,7 +114,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                   /// Email
                   TextFormField(
-                    controller: emailController,
+                    controller: _emailController,
                     decoration: const InputDecoration(labelText: 'Email'),
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) {
@@ -69,7 +132,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                   /// Password
                   TextFormField(
-                    controller: passwordController,
+                    controller: _passwordController,
                     decoration: const InputDecoration(labelText: 'Password'),
                     obscureText: true,
                     validator: (value) {
@@ -87,13 +150,13 @@ class _SignupScreenState extends State<SignupScreen> {
 
                   /// Confirm Password
                   TextFormField(
-                    controller: confirmPasswordController,
+                    controller: _confirmPasswordController,
                     decoration: const InputDecoration(
                       labelText: 'Confirm Password',
                     ),
                     obscureText: true,
                     validator: (value) {
-                      if (value != passwordController.text) {
+                      if (value != _passwordController.text) {
                         return 'Passwords do not match';
                       }
                       return null;
@@ -107,14 +170,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Signup Successful')),
-                          );
-                          Navigator.pushNamed(context, AppRoutes.login);
-                        }
-                      },
+                      onPressed: _signup,
                       style: ElevatedButton.styleFrom(
                         shape: const BeveledRectangleBorder(),
                         backgroundColor: Colors.black,

@@ -8,13 +8,21 @@ import 'package:style_sphere/screens/products_page.dart';
 
 BottomNavigationBarItem buildNavItem({required String iconPath}) {
   return BottomNavigationBarItem(
-    icon: SvgPicture.asset(iconPath, height: 22, color: Colors.grey),
+    icon: SvgPicture.asset(
+      iconPath,
+      height: 22,
+      colorFilter: const ColorFilter.mode(Colors.grey, BlendMode.srcIn),
+    ),
     label: '',
     activeIcon: Column(
       spacing: 8,
       mainAxisSize: MainAxisSize.min,
       children: [
-        SvgPicture.asset(iconPath, height: 22, color: Colors.black),
+        SvgPicture.asset(
+          iconPath,
+          height: 22,
+          colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
+        ),
         Transform.rotate(
           angle: 45 * 3.1415927 / 180,
           child: Container(width: 6, height: 6, color: AppColors.secondary),
@@ -25,11 +33,13 @@ BottomNavigationBarItem buildNavItem({required String iconPath}) {
 }
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
-  _MainScreenState createState() => _MainScreenState();
+  MainScreenState createState() => MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [

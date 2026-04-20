@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:style_sphere/screens/splash_screen.dart';
+import 'firebase_options.dart';
 import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/constants/app_routes.dart';
 import 'package:style_sphere/screens/auth/login_screen.dart';
@@ -13,7 +17,9 @@ import 'package:style_sphere/screens/about.dart' as screen;
 import 'package:style_sphere/screens/contact_us.dart';
 import 'package:style_sphere/widgets/navigation/bottom_navigation_bar.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -27,7 +33,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'TenorSans',
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           displayLarge: TextStyle(fontFamily: 'BodoniModa', fontSize: 40),
           displaySmall: TextStyle(
             fontFamily: 'BodoniModa',
@@ -47,20 +53,32 @@ class MyApp extends StatelessWidget {
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
 
-      initialRoute: AppRoutes.login,
       routes: {
         AppRoutes.login: (context) => const LoginScreen(),
         AppRoutes.signup: (context) => const SignupScreen(),
-        AppRoutes.home: (context) => MainScreen(),
-        AppRoutes.products: (context) => screen.ProductsPage(),
+        AppRoutes.home: (context) => const MainScreen(),
+        AppRoutes.products: (context) => const screen.ProductsPage(),
         AppRoutes.productsDetail: (context) => const ProductDetail(),
         AppRoutes.collection: (context) => const CollectionScreen(),
         AppRoutes.collectionDetail: (context) => const CollectionDetail(),
-        AppRoutes.blog: (context) => screen.BlogPage(),
+        AppRoutes.blog: (context) => const screen.BlogPage(),
         AppRoutes.blogDetail: (context) => const BlogDetailPage(),
-        AppRoutes.about: (context) => screen.AboutScreen(),
+        AppRoutes.about: (context) => const screen.AboutScreen(),
         AppRoutes.contact: (context) => const ContactUsPage(),
       },
+
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const SplashScreen();
+          }
+          if (snapshot.hasData) {
+            return const MainScreen();
+          }
+          return const LoginScreen();
+        },
+      ),
     );
   }
 }
