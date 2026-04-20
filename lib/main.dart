@@ -4,14 +4,14 @@ import 'package:style_sphere/constants/app_routes.dart';
 import 'package:style_sphere/screens/auth/login_screen.dart';
 import 'package:style_sphere/screens/auth/signup_screen.dart';
 import 'package:style_sphere/screens/blog_detail_page.dart';
-import 'package:style_sphere/screens/collection_detail.dart';
-import 'package:style_sphere/screens/home_page.dart';
-import 'package:style_sphere/screens/product_detail.dart';
-import 'package:style_sphere/screens/products_page.dart';
 import 'package:style_sphere/screens/collection_screen.dart';
-import 'package:style_sphere/screens/blog_page.dart';
-import 'package:style_sphere/screens/about.dart';
+import 'package:style_sphere/screens/collection_detail.dart';
+import 'package:style_sphere/screens/products_page.dart' as screen;
+import 'package:style_sphere/screens/product_detail.dart';
+import 'package:style_sphere/screens/blog_page.dart' as screen;
+import 'package:style_sphere/screens/about.dart' as screen;
 import 'package:style_sphere/screens/contact_us.dart';
+import 'package:style_sphere/widgets/navigation/bottom_navigation_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,14 +51,14 @@ class MyApp extends StatelessWidget {
       routes: {
         AppRoutes.login: (context) => const LoginScreen(),
         AppRoutes.signup: (context) => const SignupScreen(),
-        AppRoutes.home: (context) => const HomePage(),
-        AppRoutes.products: (context) => const ProductsPage(),
+        AppRoutes.home: (context) => MainScreen(),
+        AppRoutes.products: (context) => screen.ProductsPage(),
         AppRoutes.productsDetail: (context) => const ProductDetail(),
         AppRoutes.collection: (context) => const CollectionScreen(),
         AppRoutes.collectionDetail: (context) => const CollectionDetail(),
-        AppRoutes.blog: (context) => const BlogPage(),
+        AppRoutes.blog: (context) => screen.BlogPage(),
         AppRoutes.blogDetail: (context) => const BlogDetailPage(),
-        AppRoutes.about: (context) => const AboutScreen(),
+        AppRoutes.about: (context) => screen.AboutScreen(),
         AppRoutes.contact: (context) => const ContactUsPage(),
       },
     );

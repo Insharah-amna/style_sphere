@@ -73,17 +73,17 @@ class Footer extends StatelessWidget {
           ),
           const SizedBox(height: 20),
 
-          Container(
-            alignment: .center,
-            height: 48,
-            width: .infinity,
-            decoration: BoxDecoration(color: Color(0xFFEEEEEE)),
-            child: Text(
-              "Copyright© OpenUI All Rights Reserved.",
-              textAlign: .center,
-              style: Theme.of(context).textTheme.bodySmall,
-            ),
-          ),
+          // Container(
+          //   alignment: .center,
+          //   height: 48,
+          //   width: .infinity,
+          //   decoration: BoxDecoration(color: Color(0xFFEEEEEE)),
+          //   child: Text(
+          //     "Copyright© OpenUI All Rights Reserved.",
+          //     textAlign: .center,
+          //     style: Theme.of(context).textTheme.bodySmall,
+          //   ),
+          // ),
         ],
       ),
     );

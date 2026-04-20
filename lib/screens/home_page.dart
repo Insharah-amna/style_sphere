@@ -5,7 +5,6 @@ import 'package:style_sphere/screens/collection_screen.dart';
 import 'package:style_sphere/screens/products_page.dart';
 import 'package:style_sphere/widgets/navigation/app_bar.dart';
 import 'package:style_sphere/widgets/navigation/cart_drawer.dart';
-import 'package:style_sphere/widgets/navigation/footer.dart';
 import 'package:style_sphere/widgets/homepage/homepage_card.dart';
 import 'package:style_sphere/widgets/homepage/homepage_slider.dart';
 import 'package:style_sphere/widgets/navigation/menu_drawer.dart';
@@ -394,7 +393,7 @@ class HomePage extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            const Footer(),
+            // const Footer(),
           ],
         ),
       ),

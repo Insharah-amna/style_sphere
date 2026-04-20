@@ -26,23 +26,23 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Login", style: TextStyle(fontSize: 28)),
+              const Text('Login', style: TextStyle(fontSize: 28)),
               const SizedBox(height: 6),
 
-              Image.asset("assets/images/decoration_line.png", height: 9),
+              Image.asset('assets/images/decoration_line.png', height: 9),
               const SizedBox(height: 48),
 
               /// Email
               TextFormField(
                 controller: emailController,
-                decoration: const InputDecoration(labelText: "Email"),
+                decoration: const InputDecoration(labelText: 'Email'),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter email";
+                    return 'Please enter email';
                   }
                   if (!value.contains('@')) {
-                    return "Enter valid email";
+                    return 'Enter valid email';
                   }
                   return null;
                 },
@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
               TextFormField(
                 controller: passwordController,
                 decoration: InputDecoration(
-                  labelText: "Password",
+                  labelText: 'Password',
                   suffixIcon: IconButton(
                     icon: Icon(
                       _obscureText ? Icons.visibility_off : Icons.visibility,
@@ -69,10 +69,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 obscureText: _obscureText,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter password";
+                    return 'Please enter password';
                   }
                   if (value.length < 6) {
-                    return "Password must be at least 6 characters";
+                    return 'Password must be at least 6 characters';
                   }
                   return null;
                 },
@@ -87,19 +87,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Login Successful")),
-                      );
-                      Navigator.pushNamed(context, AppRoutes.home);
+                      Navigator.pushReplacementNamed(context, AppRoutes.home);
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    shape: BeveledRectangleBorder(),
+                    shape: const BeveledRectangleBorder(),
                     backgroundColor: Colors.black,
-                    padding: EdgeInsetsGeometry.symmetric(horizontal: 30),
+                    padding: const EdgeInsetsGeometry.symmetric(horizontal: 30),
                   ),
                   child: Text(
-                    "Login",
+                    'Login',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
