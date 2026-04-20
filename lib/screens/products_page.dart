@@ -1,13 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:style_sphere/constants/app_colors.dart';
-import 'package:style_sphere/constants/products.dart';
 import 'package:style_sphere/widgets/navigation/app_bar.dart';
 import 'package:style_sphere/widgets/navigation/cart_drawer.dart';
-import 'package:style_sphere/widgets/navigation/footer.dart';
 import 'package:style_sphere/widgets/navigation/menu_drawer.dart';
 import 'package:style_sphere/widgets/pagination.dart';
-import 'package:style_sphere/widgets/products/product_card.dart';
+import 'package:style_sphere/widgets/products/products_grid.dart';
+
+final Query products = FirebaseFirestore.instance
+    .collection('products')
+    .where('category', whereNotIn: ['October'])
+    .limit(10);
 
 class ProductsPage extends StatefulWidget {
   const ProductsPage({super.key});
@@ -22,11 +26,11 @@ class _ProductsPageState extends State<ProductsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: "Products Page"),
+      appBar: const MyAppBar(title: 'Products Page'),
       backgroundColor: AppColors.offWhite,
 
-      drawer: MenuDrawer(),
-      endDrawer: CartDrawer(),
+      drawer: const MenuDrawer(),
+      endDrawer: const CartDrawer(),
 
       body: SafeArea(
         child: Column(
@@ -38,11 +42,14 @@ class _ProductsPageState extends State<ProductsPage> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: "Search products",
+                  hintText: 'Search products',
                   focusColor: AppColors.primary,
-                  hintStyle: TextStyle(color: AppColors.label, fontSize: 14),
+                  hintStyle: const TextStyle(
+                    color: AppColors.label,
+                    fontSize: 14,
+                  ),
                   suffixIcon: IconButton(
-                    icon: Image.asset("assets/icons/search.png", width: 24),
+                    icon: Image.asset('assets/icons/search.png', width: 24),
                     onPressed: () {},
                   ),
                 ),
@@ -53,12 +60,12 @@ class _ProductsPageState extends State<ProductsPage> {
 
             // Search result & Filter option
             Padding(
-              padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
+              padding: const EdgeInsetsGeometry.symmetric(horizontal: 16),
               child: Row(
                 mainAxisAlignment: .spaceBetween,
                 children: [
                   Text(
-                    "4500 APPAREL",
+                    '4500 APPAREL',
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
 
@@ -70,7 +77,7 @@ class _ProductsPageState extends State<ProductsPage> {
                         height: 38,
                         alignment: .center,
                         decoration: BoxDecoration(
-                          color: Color(0xFFf6f6f6),
+                          color: const Color(0xFFf6f6f6),
                           borderRadius: .circular(50),
                         ),
                         child: GestureDetector(
@@ -81,11 +88,14 @@ class _ProductsPageState extends State<ProductsPage> {
                           },
                           child: productViewTypeGrid
                               ? SvgPicture.asset(
-                                  "assets/icons/grid.svg",
+                                  'assets/icons/grid.svg',
                                   width: 20,
-                                  color: Color(0xFF999999),
+                                  colorFilter: const ColorFilter.mode(
+                                    Color(0xFF999999),
+                                    BlendMode.srcIn,
+                                  ),
                                 )
-                              : Icon(
+                              : const Icon(
                                   Icons.format_list_bulleted_sharp,
                                   size: 20,
                                   color: Color(0xFF999999),
@@ -98,10 +108,10 @@ class _ProductsPageState extends State<ProductsPage> {
                         height: 38,
                         alignment: .center,
                         decoration: BoxDecoration(
-                          color: Color(0xFFf6f6f6),
+                          color: const Color(0xFFf6f6f6),
                           borderRadius: .circular(50),
                         ),
-                        child: Icon(
+                        child: const Icon(
                           Icons.filter_list_outlined,
                           size: 20,
                           color: Colors.grey,
@@ -119,45 +129,17 @@ class _ProductsPageState extends State<ProductsPage> {
               child: ListView(
                 children: [
                   Padding(
-                    padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
+                    padding: const EdgeInsetsGeometry.symmetric(horizontal: 16),
                     child: productViewTypeGrid
-                        ? GridView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: products.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 14,
-                                  crossAxisSpacing: 14,
-                                  childAspectRatio: 0.55,
-                                ),
-                            itemBuilder: (context, index) {
-                              final product = products[index];
-                              return ProductGridCard(product: product);
-                            },
-                          )
-                        : ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: products.length,
-                            itemBuilder: (context, index) {
-                              final product = products[index];
-                              return Padding(
-                                padding: EdgeInsetsGeometry.only(bottom: 14),
-                                child: ProductListCard(product: product),
-                              );
-                            },
-                          ),
+                        ? const ProductGrid(isGrid: true)
+                        : const ProductGrid(isGrid: false),
                   ),
 
                   const SizedBox(height: 50),
 
-                  Pagination(),
+                  const Pagination(),
 
-                  const SizedBox(height: 40),
-
-                  const Footer(),
+                  const SizedBox(height: 50),
                 ],
               ),
             ),

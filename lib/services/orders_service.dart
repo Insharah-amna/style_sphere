@@ -12,7 +12,7 @@ class OrderService {
   ) async {
     await orders.add({
       'userId': userId,
-      'items': items, // each item: {productId, quantity, size}
+      'items': items, // each item: {productId, quantity}
       'totalPrice': totalPrice,
       'status': 'pending',
       'createdAt': FieldValue.serverTimestamp(),

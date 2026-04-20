@@ -5,11 +5,25 @@ class ProductService {
     'products',
   );
 
-  Future<void> addProduct(String name, double price, String imageUrl) async {
+  Future<void> addProduct(
+    String name,
+    double price,
+    String imageUrl,
+    String category,
+    String description,
+    int discount,
+    int stock,
+    double rating,
+  ) async {
     await products.add({
       'name': name,
       'price': price,
       'imageUrl': imageUrl,
+      'category': category,
+      'description': description,
+      'discount': discount,
+      'stock': stock,
+      'rating': rating,
       'createdAt': FieldValue.serverTimestamp(),
     });
   }

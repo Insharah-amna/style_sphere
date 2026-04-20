@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/constants/app_routes.dart';
-import 'package:style_sphere/constants/products.dart';
+import 'package:style_sphere/models/products.dart';
 
 // Product Grid Card
 class ProductGridCard extends StatefulWidget {
@@ -36,21 +36,21 @@ class _ProductGridCardState extends State<ProductGridCard> {
           Container(
             height: 240,
             alignment: .bottomRight,
-            padding: EdgeInsetsGeometry.only(bottom: 7, right: 9),
+            padding: const EdgeInsetsGeometry.only(bottom: 7, right: 9),
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(widget.product.image),
+                image: NetworkImage(widget.product.imageUrl),
                 fit: .cover,
               ),
             ),
-            child: IsFavourite(),
+            child: const IsFavourite(),
           ),
           const SizedBox(height: 3),
 
           Align(
             alignment: .centerLeft,
             child: Text(
-              widget.product.title,
+              widget.product.name,
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 color: widget.isCollectionCard ? AppColors.offWhite : null,
               ),
@@ -69,7 +69,7 @@ class _ProductGridCardState extends State<ProductGridCard> {
           Align(
             alignment: .centerLeft,
             child: Text(
-              "\$${widget.product.price}",
+              '\$${widget.product.price}',
               style: Theme.of(context).textTheme.labelMedium,
             ),
           ),
@@ -101,10 +101,14 @@ class _IsFavouriteState extends State<IsFavourite> {
         });
       },
       child: isFavourite
-          ? Icon(Icons.favorite, color: AppColors.secondary, size: 20)
+          ? const Icon(Icons.favorite, color: AppColors.secondary, size: 20)
           : widget.isDarkMode
-          ? Image.asset("assets/icons/heart_white_outlined.png", width: 20)
-          : Icon(Icons.favorite_border, color: AppColors.secondary, size: 20),
+          ? Image.asset('assets/icons/heart_white_outlined.png', width: 20)
+          : const Icon(
+              Icons.favorite_border,
+              color: AppColors.secondary,
+              size: 20,
+            ),
     );
   }
 }
@@ -136,8 +140,8 @@ class _ProductListCardState extends State<ProductListCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Product Image
-          Image.asset(
-            widget.product.image,
+          Image.network(
+            widget.product.imageUrl,
             fit: BoxFit.cover,
             height: 140,
             width: 110,
@@ -153,7 +157,7 @@ class _ProductListCardState extends State<ProductListCard> {
 
                 // Title
                 Text(
-                  widget.product.title.toUpperCase(),
+                  widget.product.name.toUpperCase(),
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
@@ -173,7 +177,7 @@ class _ProductListCardState extends State<ProductListCard> {
 
                 // Price
                 Text(
-                  "\$${widget.product.price.toStringAsFixed(2)}",
+                  '\$${widget.product.price.toStringAsFixed(2)}',
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
 
@@ -189,7 +193,7 @@ class _ProductListCardState extends State<ProductListCard> {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      "${widget.product.rating} Ratings",
+                      '${widget.product.rating} Ratings',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
@@ -198,18 +202,18 @@ class _ProductListCardState extends State<ProductListCard> {
                 const SizedBox(height: 10),
 
                 // Sizes and Favorite
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
-                      children: const [
-                        Text("Size ", style: TextStyle(fontSize: 12)),
+                      children: [
+                        Text('Size ', style: TextStyle(fontSize: 12)),
                         SizedBox(width: 4),
-                        _SizeCircle(label: "S"),
+                        _SizeCircle(label: 'S'),
                         SizedBox(width: 4),
-                        _SizeCircle(label: "M"),
+                        _SizeCircle(label: 'M'),
                         SizedBox(width: 4),
-                        _SizeCircle(label: "L"),
+                        _SizeCircle(label: 'L'),
                       ],
                     ),
 

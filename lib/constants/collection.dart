@@ -14,49 +14,49 @@ class Collection {
 
 final List<Collection> collections = const [
   Collection(
-    image: "assets/images/collection1.png",
-    collectionName: "OCTOBER COLLECTION",
+    image: 'assets/images/collection1.png',
+    collectionName: 'OCTOBER COLLECTION',
     number: 01,
   ),
   Collection(
-    image: "assets/images/collection2.png",
-    collectionName: "BLACK COLLECTION",
+    image: 'assets/images/collection2.png',
+    collectionName: 'BLACK COLLECTION',
     number: 02,
   ),
   Collection(
-    image: "assets/images/collection3.png",
-    collectionName: "HAE BY HAEKIM",
+    image: 'assets/images/collection3.png',
+    collectionName: 'HAE BY HAEKIM',
     number: 03,
   ),
 ];
 
 final List<Product> collectionProducts = const [
   Product(
-    title: "October Collection",
-    description: "Recycle Boucle Knit Cardigan Pink",
+    title: 'October Collection',
+    description: 'Recycle Boucle Knit Cardigan Pink',
     price: 119.99,
-    image: "assets/images/c_product1.png",
+    image: 'assets/images/c_product1.png',
     rating: 4.8,
   ),
   Product(
-    title: "October Collection",
-    description: "Recycle Boucle Knit Cardigan Pink",
+    title: 'October Collection',
+    description: 'Recycle Boucle Knit Cardigan Pink',
     price: 119.99,
-    image: "assets/images/c_product2.png",
+    image: 'assets/images/c_product2.png',
     rating: 4.8,
   ),
   Product(
-    title: "October Collection",
-    description: "Recycle Boucle Knit Cardigan Pink",
+    title: 'October Collection',
+    description: 'Recycle Boucle Knit Cardigan Pink',
     price: 119.99,
-    image: "assets/images/c_product3.png",
+    image: 'assets/images/c_product3.png',
     rating: 4.8,
   ),
   Product(
-    title: "October Collection",
-    description: "Recycle Boucle Knit Cardigan Pink",
+    title: 'October Collection',
+    description: 'Recycle Boucle Knit Cardigan Pink',
     price: 119.99,
-    image: "assets/images/c_product4.png",
+    image: 'assets/images/c_product4.png',
     rating: 4.8,
   ),
 ];

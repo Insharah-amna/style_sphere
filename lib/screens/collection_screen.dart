@@ -13,7 +13,7 @@ class CollectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: 'Collection Screen', lightMode: false),
+      appBar: const MyAppBar(title: 'Collection Screen', lightMode: false),
       backgroundColor: AppColors.darkMode,
 
       drawer: const MenuDrawer(),
@@ -24,11 +24,11 @@ class CollectionScreen extends StatelessWidget {
           children: [
             const SizedBox(height: 22),
 
-            Stack(
+            const Stack(
               alignment: Alignment.center,
               children: [
                 Text(
-                  "10",
+                  '10',
                   style: TextStyle(
                     fontSize: 140,
                     color: Color(0x66343434),
@@ -43,7 +43,7 @@ class CollectionScreen extends StatelessWidget {
                   mainAxisAlignment: .center,
                   children: [
                     Text(
-                      "October",
+                      'October',
                       style: TextStyle(
                         height: 1.3,
                         fontSize: 42,
@@ -55,7 +55,7 @@ class CollectionScreen extends StatelessWidget {
                     ),
 
                     Text(
-                      "COLLECTION",
+                      'COLLECTION',
                       style: TextStyle(
                         fontSize: 13,
                         color: AppColors.offWhite,
@@ -74,7 +74,7 @@ class CollectionScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final collection = collections[index];
                 return Padding(
-                  padding: EdgeInsetsGeometry.only(bottom: 50),
+                  padding: const EdgeInsetsGeometry.only(bottom: 50),
                   child: CollectionCard(collection: collection),
                 );
               },
@@ -111,8 +111,8 @@ class _CollectionCardState extends State<CollectionCard> {
         );
       },
       child: Container(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
-        decoration: BoxDecoration(color: AppColors.darkMode),
+        padding: const EdgeInsetsGeometry.symmetric(horizontal: 16),
+        decoration: const BoxDecoration(color: AppColors.darkMode),
 
         child: Column(
           children: [
@@ -135,7 +135,7 @@ class _CollectionCardState extends State<CollectionCard> {
 
                 Text(
                   widget.collection.collectionName,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 13,
                     letterSpacing: 2,
                     color: AppColors.offWhite,

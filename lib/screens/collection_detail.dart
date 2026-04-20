@@ -5,9 +5,8 @@ import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/widgets/navigation/cart_drawer.dart';
 import 'package:style_sphere/widgets/navigation/menu_drawer.dart';
 import 'package:style_sphere/constants/collection.dart';
-import 'package:style_sphere/widgets/products/product_card.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:style_sphere/widgets/navigation/footer.dart';
+import 'package:style_sphere/widgets/products/products_grid.dart';
 
 class CollectionDetail extends StatelessWidget {
   const CollectionDetail({super.key});
@@ -17,7 +16,7 @@ class CollectionDetail extends StatelessWidget {
     final collection = ModalRoute.of(context)!.settings.arguments as Collection;
 
     return Scaffold(
-      appBar: MyAppBar(title: 'Collection Detail Page', lightMode: false),
+      appBar: const MyAppBar(title: 'Collection Detail Page', lightMode: false),
       backgroundColor: AppColors.darkMode,
 
       drawer: const MenuDrawer(),
@@ -29,11 +28,11 @@ class CollectionDetail extends StatelessWidget {
             const SizedBox(height: 22),
 
             // 10 - October Collection
-            Stack(
+            const Stack(
               alignment: Alignment.center,
               children: [
                 Text(
-                  "10",
+                  '10',
                   style: TextStyle(
                     fontSize: 140,
                     color: Color(0x66343434),
@@ -48,7 +47,7 @@ class CollectionDetail extends StatelessWidget {
                   mainAxisAlignment: .center,
                   children: [
                     Text(
-                      "October",
+                      'October',
                       style: TextStyle(
                         height: 1.3,
                         fontSize: 42,
@@ -60,7 +59,7 @@ class CollectionDetail extends StatelessWidget {
                     ),
 
                     Text(
-                      "COLLECTION",
+                      'COLLECTION',
                       style: TextStyle(
                         fontSize: 13,
                         color: AppColors.offWhite,
@@ -74,7 +73,7 @@ class CollectionDetail extends StatelessWidget {
 
             // Collection Image
             Padding(
-              padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
+              padding: const EdgeInsetsGeometry.symmetric(horizontal: 16),
               child: Column(
                 children: [
                   Image.asset(collection.image, fit: .cover),
@@ -82,31 +81,17 @@ class CollectionDetail extends StatelessWidget {
                   const SizedBox(height: 38),
 
                   // Collection Products
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: collectionProducts.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 14,
-                          crossAxisSpacing: 14,
-                          childAspectRatio: 0.55,
-                        ),
-                    itemBuilder: (context, index) {
-                      final collectionProduct = collectionProducts[index];
-                      return ProductGridCard(
-                        product: collectionProduct,
-                        isCollectionCard: true,
-                      );
-                    },
+                  const ProductGrid(
+                    isCollectionCard: true,
+                    category: 'October',
+                    limit: 4,
                   ),
 
                   const SizedBox(height: 40),
 
                   // You may also like
-                  Text(
-                    "YOU MAY ALSO LIKE",
+                  const Text(
+                    'YOU MAY ALSO LIKE',
                     style: TextStyle(
                       fontSize: 18,
                       letterSpacing: 4,
@@ -117,20 +102,16 @@ class CollectionDetail extends StatelessWidget {
                   const SizedBox(height: 4),
 
                   Image.asset(
-                    "assets/images/decoration_line_light.png",
+                    'assets/images/decoration_line_light.png',
                     height: 11,
                   ),
 
                   const SizedBox(height: 24),
 
-                  CollectionSlider(),
+                  const CollectionSlider(),
                 ],
               ),
             ),
-
-            const SizedBox(height: 24),
-
-            const Footer(),
           ],
         ),
       ),

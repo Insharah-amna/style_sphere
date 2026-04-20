@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_colors.dart';
-import 'package:style_sphere/constants/products.dart';
 import 'package:style_sphere/screens/collection_screen.dart';
 import 'package:style_sphere/screens/products_page.dart';
 import 'package:style_sphere/widgets/navigation/app_bar.dart';
@@ -16,7 +15,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: 'HomePage'),
+      appBar: const MyAppBar(title: 'HomePage'),
       backgroundColor: AppColors.offWhite,
 
       drawer: const MenuDrawer(),
@@ -26,7 +25,7 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
-            HomepageSlider(),
+            const HomepageSlider(),
 
             const SizedBox(height: 40),
 
@@ -36,7 +35,7 @@ class HomePage extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    "NEW ARRIVAL",
+                    'NEW ARRIVAL',
                     style: Theme.of(
                       context,
                     ).textTheme.titleLarge!.copyWith(letterSpacing: 5),
@@ -44,50 +43,36 @@ class HomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
 
-                  Image.asset("assets/images/decoration_line.png", height: 11),
+                  Image.asset('assets/images/decoration_line.png', height: 11),
                   const SizedBox(height: 20),
 
                   Row(
                     mainAxisAlignment: .center,
                     spacing: 26,
                     children: [
-                      Text("All", style: TextStyle(fontSize: 16)),
+                      const Text('All', style: TextStyle(fontSize: 16)),
                       Text(
-                        "Apparel",
+                        'Apparel',
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       Text(
-                        "Dress",
+                        'Dress',
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       Text(
-                        "T shirt",
+                        'T shirt',
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       Text(
-                        "Bag",
+                        'Bag',
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ],
                   ),
+
                   const SizedBox(height: 24),
 
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: newProducts.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 16,
-                          crossAxisSpacing: 10,
-                          childAspectRatio: 0.65,
-                        ),
-                    itemBuilder: (context, index) {
-                      final product = newProducts[index];
-                      return HomepageCard(product: product);
-                    },
-                  ),
+                  const ProductGridScreen(),
 
                   const SizedBox(height: 20),
 
@@ -95,21 +80,23 @@ class HomePage extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ProductsPage()),
+                        MaterialPageRoute(
+                          builder: (context) => const ProductsPage(),
+                        ),
                       );
                     },
                     style: TextButton.styleFrom(
-                      shape: BeveledRectangleBorder(),
+                      shape: const BeveledRectangleBorder(),
                     ),
                     child: Row(
                       mainAxisAlignment: .center,
                       spacing: 6,
                       children: [
                         Text(
-                          "Explore More",
+                          'Explore More',
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
-                        Icon(
+                        const Icon(
                           Icons.arrow_forward_sharp,
                           size: 20,
                           color: Colors.black,
@@ -131,31 +118,31 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: .center,
               spacing: 40,
               children: [
-                Image.asset("assets/images/decoration_line.png", height: 10),
+                Image.asset('assets/images/decoration_line.png', height: 10),
 
                 Row(
                   mainAxisAlignment: .center,
                   children: [
-                    Image.asset("assets/images/prada.png", width: 70),
+                    Image.asset('assets/images/prada.png', width: 70),
                     const SizedBox(width: 41),
-                    Image.asset("assets/images/burberry.png", width: 100),
+                    Image.asset('assets/images/burberry.png', width: 100),
                     const SizedBox(width: 46),
-                    Image.asset("assets/images/hugo_boss.png", width: 50),
+                    Image.asset('assets/images/hugo_boss.png', width: 50),
                   ],
                 ),
 
                 Row(
                   mainAxisAlignment: .center,
                   children: [
-                    Image.asset("assets/images/cartier.png", width: 72),
+                    Image.asset('assets/images/cartier.png', width: 72),
                     const SizedBox(width: 44),
-                    Image.asset("assets/images/gucci.png", width: 93),
+                    Image.asset('assets/images/gucci.png', width: 93),
                     const SizedBox(width: 20),
-                    Image.asset("assets/images/tiffany.png", width: 98),
+                    Image.asset('assets/images/tiffany.png', width: 98),
                   ],
                 ),
 
-                Image.asset("assets/images/decoration_line.png", height: 10),
+                Image.asset('assets/images/decoration_line.png', height: 10),
               ],
             ),
 
@@ -163,7 +150,7 @@ class HomePage extends StatelessWidget {
 
             // October collection
             Text(
-              "COLLECTIONS",
+              'COLLECTIONS',
               textAlign: .center,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 letterSpacing: 4,
@@ -177,11 +164,13 @@ class HomePage extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CollectionScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => const CollectionScreen(),
+                  ),
                 );
               },
               child: Image.asset(
-                "assets/images/homepage2.png",
+                'assets/images/homepage2.png',
                 width: .infinity,
                 fit: .cover,
               ),
@@ -194,19 +183,21 @@ class HomePage extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CollectionScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => const CollectionScreen(),
+                  ),
                 );
               },
               child: Container(
                 height: 296,
-                margin: EdgeInsetsGeometry.symmetric(horizontal: 58),
-                padding: EdgeInsetsGeometry.symmetric(
+                margin: const EdgeInsetsGeometry.symmetric(horizontal: 58),
+                padding: const EdgeInsetsGeometry.symmetric(
                   horizontal: 22,
                   vertical: 36,
                 ),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("assets/images/homepage3.png"),
+                    image: AssetImage('assets/images/homepage3.png'),
                     fit: .cover,
                   ),
                 ),
@@ -214,13 +205,13 @@ class HomePage extends StatelessWidget {
                   crossAxisAlignment: .end,
                   children: [
                     Text(
-                      "Autumn",
+                      'Autumn',
                       style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                        color: Color(0xBB111111),
+                        color: const Color(0xBB111111),
                       ),
                     ),
                     Text(
-                      "   COLLECTION",
+                      '   COLLECTION',
                       style: Theme.of(
                         context,
                       ).textTheme.bodySmall!.copyWith(letterSpacing: 4),
@@ -233,7 +224,7 @@ class HomePage extends StatelessWidget {
 
             // video
             Image.asset(
-              "assets/images/homepage4.png",
+              'assets/images/homepage4.png',
               width: .infinity,
               fit: .cover,
             ),
@@ -241,7 +232,7 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 70),
 
             Text(
-              "JUST FOR YOU",
+              'JUST FOR YOU',
               textAlign: .center,
               style: Theme.of(
                 context,
@@ -250,30 +241,30 @@ class HomePage extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            Image.asset("assets/images/decoration_line.png", height: 11),
+            Image.asset('assets/images/decoration_line.png', height: 11),
 
             const SizedBox(height: 24),
 
             // Just for you collection
-            ProductSlider(),
+            const ProductSlider(),
 
             const SizedBox(height: 56),
 
             // Open Fashion
             Container(
               height: 525,
-              padding: EdgeInsetsGeometry.symmetric(
+              padding: const EdgeInsetsGeometry.symmetric(
                 vertical: 28,
                 horizontal: 18,
               ),
-              decoration: BoxDecoration(color: Color(0xFFF2F2F2)),
+              decoration: const BoxDecoration(color: Color(0xFFF2F2F2)),
               child: Column(
                 children: [
-                  Image.asset("assets/images/logo.png", width: 98, fit: .cover),
+                  Image.asset('assets/images/logo.png', width: 98, fit: .cover),
                   const SizedBox(height: 16),
 
                   Text(
-                    "Making a luxurious lifestyle accessible\nfor a generous group of women is our\ndaily drive.",
+                    'Making a luxurious lifestyle accessible\nfor a generous group of women is our\ndaily drive.',
                     textAlign: .center,
                     style: Theme.of(
                       context,
@@ -281,40 +272,40 @@ class HomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
 
-                  Image.asset("assets/images/decoration_line.png", height: 11),
+                  Image.asset('assets/images/decoration_line.png', height: 11),
                   const SizedBox(height: 18),
 
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
                         child: Column(
-                          children: const [
+                          children: [
                             FeatureItem(
-                              imagePath: "assets/images/decor1.png",
-                              text: "Fast shipping. Free on orders over \$25.",
+                              imagePath: 'assets/images/decor1.png',
+                              text: 'Fast shipping. Free on orders over \$25.',
                             ),
                             SizedBox(height: 20),
                             FeatureItem(
-                              imagePath: "assets/images/decor3.png",
+                              imagePath: 'assets/images/decor3.png',
                               text:
-                                  "Unique designs and high-quality materials.",
+                                  'Unique designs and high-quality materials.',
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(width: 34),
+                      SizedBox(width: 34),
                       Expanded(
                         child: Column(
-                          children: const [
+                          children: [
                             FeatureItem(
-                              imagePath: "assets/images/decor2.png",
-                              text: "Sustainable process from start to finish.",
+                              imagePath: 'assets/images/decor2.png',
+                              text: 'Sustainable process from start to finish.',
                             ),
                             SizedBox(height: 20),
                             FeatureItem(
-                              imagePath: "assets/images/decor4.png",
-                              text: "Fast shipping.\nFree on orders over \$25.",
+                              imagePath: 'assets/images/decor4.png',
+                              text: 'Fast shipping.\nFree on orders over \$25.',
                             ),
                           ],
                         ),
@@ -325,7 +316,7 @@ class HomePage extends StatelessWidget {
 
                   Center(
                     child: Image.asset(
-                      "assets/images/decor5.png",
+                      'assets/images/decor5.png',
                       width: 67,
                       fit: .cover,
                     ),
@@ -337,7 +328,7 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 46),
 
             Text(
-              "FOLLOW US",
+              'FOLLOW US',
               textAlign: .center,
               style: Theme.of(
                 context,
@@ -345,14 +336,14 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 14),
 
-            ImageIcon(
-              AssetImage("assets/images/instagram_filled.png"),
+            const ImageIcon(
+              AssetImage('assets/images/instagram_filled.png'),
               size: 24,
             ),
             const SizedBox(height: 20),
 
             // Instagram links
-            Padding(
+            const Padding(
               padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
               child: Row(
                 spacing: 16,
@@ -360,14 +351,14 @@ class HomePage extends StatelessWidget {
                   Expanded(
                     child: Column(
                       spacing: 16,
-                      children: const [
+                      children: [
                         FollowCard(
-                          imagePath: "assets/images/account1.png",
-                          accName: "mia",
+                          imagePath: 'assets/images/account1.png',
+                          accName: 'mia',
                         ),
                         FollowCard(
-                          imagePath: "assets/images/account2.png",
-                          accName: "_jihyn",
+                          imagePath: 'assets/images/account2.png',
+                          accName: '_jihyn',
                         ),
                       ],
                     ),
@@ -375,14 +366,14 @@ class HomePage extends StatelessWidget {
                   Expanded(
                     child: Column(
                       spacing: 16,
-                      children: const [
+                      children: [
                         FollowCard(
-                          imagePath: "assets/images/account3.png",
-                          accName: "amna",
+                          imagePath: 'assets/images/account3.png',
+                          accName: 'amna',
                         ),
                         FollowCard(
-                          imagePath: "assets/images/account4.png",
-                          accName: "masha",
+                          imagePath: 'assets/images/account4.png',
+                          accName: 'masha',
                         ),
                       ],
                     ),
@@ -391,9 +382,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 20),
-
-            // const Footer(),
+            const SizedBox(height: 40),
           ],
         ),
       ),
@@ -431,7 +420,7 @@ class FollowCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 175,
-      padding: EdgeInsetsGeometry.all(12),
+      padding: const EdgeInsetsGeometry.all(12),
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(imagePath),
@@ -444,7 +433,7 @@ class FollowCard extends StatelessWidget {
       ),
       child: Align(
         alignment: .bottomLeft,
-        child: Text("@$accName", style: TextStyle(color: Colors.white)),
+        child: Text('@$accName', style: const TextStyle(color: Colors.white)),
       ),
     );
   }
