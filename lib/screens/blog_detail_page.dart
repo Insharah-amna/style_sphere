@@ -3,7 +3,6 @@ import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/constants/blogs.dart';
 import 'package:style_sphere/widgets/navigation/app_bar.dart';
 import 'package:style_sphere/widgets/navigation/cart_drawer.dart';
-import 'package:style_sphere/widgets/navigation/footer.dart';
 import 'package:style_sphere/widgets/navigation/menu_drawer.dart';
 
 class BlogDetailPage extends StatelessWidget {
@@ -14,7 +13,7 @@ class BlogDetailPage extends StatelessWidget {
     final blog = ModalRoute.of(context)!.settings.arguments as Blog;
 
     return Scaffold(
-      appBar: MyAppBar(title: "Blog Detail"),
+      appBar: const MyAppBar(title: 'Blog Detail'),
       backgroundColor: AppColors.offWhite,
 
       drawer: const MenuDrawer(),
@@ -27,7 +26,7 @@ class BlogDetailPage extends StatelessWidget {
             Image.asset(blog.image, width: .infinity, fit: .cover),
 
             Padding(
-              padding: EdgeInsetsGeometry.symmetric(horizontal: 18),
+              padding: const EdgeInsetsGeometry.symmetric(horizontal: 18),
               child: Column(
                 children: [
                   const SizedBox(height: 8),
@@ -55,7 +54,7 @@ class BlogDetailPage extends StatelessWidget {
                   Align(
                     alignment: .centerLeft,
                     child: Text(
-                      "Posted By OpenFashion | ${blog.timeStamp}",
+                      'Posted By OpenFashion | ${blog.timeStamp}',
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ),
@@ -63,8 +62,7 @@ class BlogDetailPage extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 16),
-            const Footer(),
+            const SizedBox(height: 36),
           ],
         ),
       ),

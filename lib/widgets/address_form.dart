@@ -5,12 +5,12 @@ class AddressForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
 
     return Padding(
-      padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
+      padding: const EdgeInsetsGeometry.symmetric(horizontal: 16),
       child: Form(
-        key: _formKey,
+        key: formKey,
         // child: Padding(
         //   padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
         child: Column(
@@ -18,12 +18,12 @@ class AddressForm extends StatelessWidget {
           children: [
             TextFormField(
               decoration: const InputDecoration(
-                labelText: "Full Name",
+                labelText: 'Full Name',
                 labelStyle: TextStyle(color: Colors.grey),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "Please enter your name";
+                  return 'Please enter your name';
                 }
                 return null;
               },
@@ -31,21 +31,21 @@ class AddressForm extends StatelessWidget {
 
             TextFormField(
               decoration: const InputDecoration(
-                labelText: "Address",
+                labelText: 'Address',
                 labelStyle: TextStyle(color: Colors.grey),
               ),
             ),
 
             TextFormField(
               decoration: const InputDecoration(
-                labelText: "City",
+                labelText: 'City',
                 labelStyle: TextStyle(color: Colors.grey),
               ),
             ),
 
             TextFormField(
               decoration: const InputDecoration(
-                labelText: "Postal Code",
+                labelText: 'Postal Code',
                 labelStyle: TextStyle(color: Colors.grey),
               ),
               keyboardType: TextInputType.number,
@@ -53,14 +53,14 @@ class AddressForm extends StatelessWidget {
 
             TextFormField(
               decoration: const InputDecoration(
-                labelText: "Country",
+                labelText: 'Country',
                 labelStyle: TextStyle(color: Colors.grey),
               ),
             ),
 
             TextFormField(
               decoration: const InputDecoration(
-                labelText: "Phone Number",
+                labelText: 'Phone Number',
                 labelStyle: TextStyle(color: Colors.grey),
               ),
               keyboardType: TextInputType.phone,

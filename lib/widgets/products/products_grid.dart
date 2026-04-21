@@ -11,6 +11,7 @@ class ProductGrid extends StatelessWidget {
   final int crossAxisCount;
   final double aspectRatio;
   final double spacing;
+  final String searchQuery;
 
   const ProductGrid({
     super.key,
@@ -21,11 +22,32 @@ class ProductGrid extends StatelessWidget {
     this.crossAxisCount = 2,
     this.aspectRatio = 0.55,
     this.spacing = 14,
+    this.searchQuery = '',
   });
 
   @override
   Widget build(BuildContext context) {
     final productRepo = ProductRepository();
+
+    List<Product> filterProducts(List<Product> products, String query) {
+      if (query.isEmpty) return products;
+
+      return products.where((product) {
+        final nameMatch = product.name.toLowerCase().contains(
+          query.toLowerCase(),
+        );
+
+        final descriptionMatch = product.description.toLowerCase().contains(
+          query.toLowerCase(),
+        );
+
+        final categoryMatch = product.category.toLowerCase().contains(
+          query.toLowerCase(),
+        );
+
+        return nameMatch || descriptionMatch || categoryMatch;
+      }).toList();
+    }
 
     return FutureBuilder<List<Product>>(
       future: productRepo.fetchProducts(category: category, limit: limit),
@@ -39,11 +61,31 @@ class ProductGrid extends StatelessWidget {
 
         final products = snapshot.data ?? [];
 
+        // Filter products based on search query
+        final filteredProducts = filterProducts(products, searchQuery);
+
+        // Show no results message
+        if (filteredProducts.isEmpty && searchQuery.isNotEmpty) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.search_off, size: 64, color: Colors.grey),
+                const SizedBox(height: 16),
+                Text(
+                  'No products found for "$searchQuery"',
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
+                ),
+              ],
+            ),
+          );
+        }
+
         if (isGrid) {
           return GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: products.length,
+            itemCount: filteredProducts.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: crossAxisCount,
               mainAxisSpacing: spacing,
@@ -52,7 +94,7 @@ class ProductGrid extends StatelessWidget {
             ),
             itemBuilder: (context, index) {
               return ProductGridCard(
-                product: products[index],
+                product: filteredProducts[index],
                 isCollectionCard: isCollectionCard,
               );
             },
@@ -61,11 +103,11 @@ class ProductGrid extends StatelessWidget {
           return ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: products.length,
+            itemCount: filteredProducts.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: EdgeInsets.only(bottom: spacing),
-                child: ProductListCard(product: products[index]),
+                child: ProductListCard(product: filteredProducts[index]),
               );
             },
           );

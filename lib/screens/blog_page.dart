@@ -4,7 +4,6 @@ import 'package:style_sphere/constants/blogs.dart';
 import 'package:style_sphere/widgets/navigation/app_bar.dart';
 import 'package:style_sphere/widgets/blog/blog_card.dart';
 import 'package:style_sphere/widgets/navigation/cart_drawer.dart';
-import 'package:style_sphere/widgets/navigation/footer.dart';
 import 'package:style_sphere/widgets/navigation/menu_drawer.dart';
 
 class BlogPage extends StatelessWidget {
@@ -13,11 +12,10 @@ class BlogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: 'Blog Page'),
+      appBar: const MyAppBar(title: 'Blog Page'),
       backgroundColor: AppColors.offWhite,
 
       drawer: const MenuDrawer(),
-
       endDrawer: const CartDrawer(),
 
       body: SafeArea(
@@ -30,7 +28,7 @@ class BlogPage extends StatelessWidget {
                   const SizedBox(height: 32),
 
                   Text(
-                    "BLOG",
+                    'BLOG',
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                       letterSpacing: 4,
@@ -40,11 +38,11 @@ class BlogPage extends StatelessWidget {
 
                   const SizedBox(height: 2),
 
-                  Image.asset("assets/images/decoration_line.png", height: 11),
+                  Image.asset('assets/images/decoration_line.png', height: 11),
 
                   const SizedBox(height: 28),
 
-                  SearchBullets(),
+                  const SearchBullets(),
 
                   const SizedBox(height: 18),
                 ],
@@ -68,40 +66,35 @@ class BlogPage extends StatelessWidget {
 
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 70,
-                  right: 70,
-                  top: 35,
-                  bottom: 25,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 70,
+                  vertical: 35,
                 ),
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsetsGeometry.symmetric(vertical: 16),
+                    padding: const EdgeInsetsGeometry.symmetric(vertical: 16),
                     elevation: 0,
-                    side: BorderSide(color: Colors.grey, width: 0.5),
-                    shape: BeveledRectangleBorder(),
+                    side: const BorderSide(color: Colors.grey, width: 0.5),
+                    shape: const BeveledRectangleBorder(),
                     backgroundColor: AppColors.offWhite,
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        "LOAD MORE",
+                        'LOAD MORE',
                         style: Theme.of(
                           context,
                         ).textTheme.titleLarge!.copyWith(fontWeight: .w400),
                       ),
-                      SizedBox(width: 18),
-                      Image.asset("assets/icons/add.png", width: 18),
+                      const SizedBox(width: 18),
+                      Image.asset('assets/icons/add.png', width: 18),
                     ],
                   ),
                 ),
               ),
             ),
-
-            /// FOOTER
-            SliverToBoxAdapter(child: const Footer()),
           ],
         ),
       ),

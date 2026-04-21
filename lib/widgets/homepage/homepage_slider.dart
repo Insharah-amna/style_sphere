@@ -13,9 +13,9 @@ class HomepageSlider extends StatefulWidget {
 class _HomepageSliderState extends State<HomepageSlider> {
 
   final List<String> imageUrls = [
-    "assets/images/homepage1.png",
-    "assets/images/homepage1.png",
-    "assets/images/homepage1.png",
+    'assets/images/homepage1.png',
+    'assets/images/homepage1.png',
+    'assets/images/homepage1.png',
   ];
 
   var _currentIndex = 0;
@@ -27,7 +27,7 @@ class _HomepageSliderState extends State<HomepageSlider> {
         height: 660,
         viewportFraction: 1,
         autoPlay: true,
-        autoPlayInterval: Duration(seconds: 3),
+        autoPlayInterval: const Duration(seconds: 3),
         onPageChanged: (index, reason) {
           setState(() {
             _currentIndex = index;
@@ -40,9 +40,9 @@ class _HomepageSliderState extends State<HomepageSlider> {
             return Container(
               width: .infinity,
 
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/images/homepage1.png"),
+                  image: AssetImage('assets/images/homepage1.png'),
                   fit: .cover
                 ),
               ),
@@ -51,8 +51,8 @@ class _HomepageSliderState extends State<HomepageSlider> {
                 children: [
                   const SizedBox(height: 230),
 
-                  Text(
-                    "LUXURY\n FASHION\n& ACCESSORIES",
+                  const Text(
+                    'LUXURY\n FASHION\n& ACCESSORIES',
                     style: TextStyle(
                       fontFamily: 'BodoniModa',
                       fontSize: 36,
@@ -68,14 +68,14 @@ class _HomepageSliderState extends State<HomepageSlider> {
                       child: ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0x66111111),
-                          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 34),
+                          backgroundColor: const Color(0x66111111),
+                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 34),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
                           elevation: 0,
                         ),
-                        child: Text("EXPLORE COLLECTION", style: Theme.of(context).textTheme.titleMedium),
+                        child: Text('EXPLORE COLLECTION', style: Theme.of(context).textTheme.titleMedium),
                       ),
                     ),
                   ),
@@ -90,10 +90,10 @@ class _HomepageSliderState extends State<HomepageSlider> {
                         child: Container(
                           width: 6.0,
                           height: 6.0,
-                          margin: EdgeInsets.symmetric(horizontal: 4),
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
                           decoration: BoxDecoration(
                             border: _currentIndex == entry.key
-                                ? .fromBorderSide(.none)
+                                ? const .fromBorderSide(.none)
                                 : Border.all(width: 1, color: AppColors.offWhite),
                             color: _currentIndex == entry.key
                                 ? AppColors.offWhite

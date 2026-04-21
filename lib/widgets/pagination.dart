@@ -42,7 +42,7 @@ class _PaginationState extends State<Pagination> {
                     : Colors.grey.shade200,
               ),
               child: Text(
-                "$page",
+                '$page',
                 style: TextStyle(
                   color: currentPage == page ? Colors.white : Colors.black,
                 ),

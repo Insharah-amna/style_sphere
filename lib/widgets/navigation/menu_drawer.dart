@@ -37,7 +37,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
               // TOP TABS
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [_tab("WOMEN", 0), _tab("MEN", 1), _tab("KIDS", 2)],
+                children: [_tab('WOMEN', 0), _tab('MEN', 1), _tab('KIDS', 2)],
               ),
 
               const SizedBox(height: 16),
@@ -46,12 +46,12 @@ class _MenuDrawerState extends State<MenuDrawer> {
               Expanded(
                 child: ListView(
                   children: const [
-                    DrawerItem(title: "New"),
-                    DrawerItem(title: "Apparel"),
-                    DrawerItem(title: "Bag"),
-                    DrawerItem(title: "Shoes"),
-                    DrawerItem(title: "Beauty"),
-                    DrawerItem(title: "Accessories"),
+                    DrawerItem(title: 'New'),
+                    DrawerItem(title: 'Apparel'),
+                    DrawerItem(title: 'Bag'),
+                    DrawerItem(title: 'Shoes'),
+                    DrawerItem(title: 'Beauty'),
+                    DrawerItem(title: 'Accessories'),
                   ],
                 ),
               ),
@@ -63,10 +63,10 @@ class _MenuDrawerState extends State<MenuDrawer> {
                 children: [
                   Row(
                     children: [
-                      Image.asset("assets/icons/call.png", width: 24),
-                      SizedBox(width: 16),
-                      Text(
-                        "(786) 713-8616",
+                      Image.asset('assets/icons/call.png', width: 24),
+                      const SizedBox(width: 16),
+                      const Text(
+                        '(786) 713-8616',
                         style: TextStyle(fontSize: 16, color: AppColors.label),
                       ),
                     ],
@@ -75,10 +75,10 @@ class _MenuDrawerState extends State<MenuDrawer> {
 
                   Row(
                     children: [
-                      Image.asset("assets/icons/location.png", width: 24),
-                      SizedBox(width: 16),
-                      Text(
-                        "Store Locator",
+                      Image.asset('assets/icons/location.png', width: 24),
+                      const SizedBox(width: 16),
+                      const Text(
+                        'Store Locator',
                         style: TextStyle(fontSize: 16, color: AppColors.label),
                       ),
                     ],
@@ -89,7 +89,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
               const SizedBox(height: 40),
 
               Image.asset(
-                "assets/images/decoration_line.png",
+                'assets/images/decoration_line.png',
                 height: 11,
                 fit: .cover,
               ),
@@ -101,17 +101,17 @@ class _MenuDrawerState extends State<MenuDrawer> {
                 mainAxisAlignment: .center,
                 children: [
                   Image.asset(
-                    "assets/images/twitter_filled.png",
+                    'assets/images/twitter_filled.png',
                     height: 21,
                     fit: .cover,
                   ),
                   Image.asset(
-                    "assets/images/instagram_filled.png",
+                    'assets/images/instagram_filled.png',
                     height: 21,
                     fit: .cover,
                   ),
                   Image.asset(
-                    "assets/images/youtube_filled.png",
+                    'assets/images/youtube_filled.png',
                     height: 21,
                     fit: .cover,
                   ),
@@ -138,7 +138,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsetsGeometry.symmetric(horizontal: 5),
+            padding: const EdgeInsetsGeometry.symmetric(horizontal: 5),
             child: Text(
               title,
               style: TextStyle(
@@ -172,12 +172,12 @@ class DrawerItem extends StatelessWidget {
       children: const [
         Column(
           children: [
-            ListTile(title: Text("Outer")),
-            ListTile(title: Text("Dress")),
-            ListTile(title: Text("T-shirt")),
-            ListTile(title: Text("Knitwear")),
-            ListTile(title: Text("Pants")),
-            ListTile(title: Text("Denim")),
+            ListTile(title: Text('Outer')),
+            ListTile(title: Text('Dress')),
+            ListTile(title: Text('T-shirt')),
+            ListTile(title: Text('Knitwear')),
+            ListTile(title: Text('Pants')),
+            ListTile(title: Text('Denim')),
           ],
         ),
       ],

@@ -15,7 +15,15 @@ class ProductsPage extends StatefulWidget {
 }
 
 class _ProductsPageState extends State<ProductsPage> {
-  var productViewTypeGrid = true;
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+  bool productViewTypeGrid = true;
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +43,7 @@ class _ProductsPageState extends State<ProductsPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: TextField(
+                controller: _searchController,
                 decoration: InputDecoration(
                   hintText: 'Search products',
                   focusColor: AppColors.primary,
@@ -44,9 +53,19 @@ class _ProductsPageState extends State<ProductsPage> {
                   ),
                   suffixIcon: IconButton(
                     icon: Image.asset('assets/icons/search.png', width: 24),
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        _searchQuery = _searchController.text;
+                      });
+                    },
                   ),
                 ),
+                onChanged: (value) {
+                  // Real-time search
+                  setState(() {
+                    _searchQuery = value;
+                  });
+                },
               ),
             ),
 
@@ -56,13 +75,8 @@ class _ProductsPageState extends State<ProductsPage> {
             Padding(
               padding: const EdgeInsetsGeometry.symmetric(horizontal: 16),
               child: Row(
-                mainAxisAlignment: .spaceBetween,
+                mainAxisAlignment: .end,
                 children: [
-                  Text(
-                    '4500 APPAREL',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-
                   Row(
                     spacing: 10,
                     children: [
@@ -125,8 +139,8 @@ class _ProductsPageState extends State<ProductsPage> {
                   Padding(
                     padding: const EdgeInsetsGeometry.symmetric(horizontal: 16),
                     child: productViewTypeGrid
-                        ? const ProductGrid(isGrid: true)
-                        : const ProductGrid(isGrid: false),
+                        ? ProductGrid(isGrid: true, searchQuery: _searchQuery)
+                        : ProductGrid(isGrid: false, searchQuery: _searchQuery),
                   ),
 
                   const SizedBox(height: 50),

@@ -20,17 +20,17 @@ class Footer extends StatelessWidget {
             mainAxisAlignment: .center,
             children: [
               Image.asset(
-                "assets/images/twitter_filled.png",
+                'assets/images/twitter_filled.png',
                 height: 21,
                 fit: .cover,
               ),
               Image.asset(
-                "assets/images/instagram_filled.png",
+                'assets/images/instagram_filled.png',
                 height: 21,
                 fit: .cover,
               ),
               Image.asset(
-                "assets/images/youtube_filled.png",
+                'assets/images/youtube_filled.png',
                 height: 21,
                 fit: .cover,
               ),
@@ -39,7 +39,7 @@ class Footer extends StatelessWidget {
           const SizedBox(height: 30),
 
           Image.asset(
-            "assets/images/decoration_line.png",
+            'assets/images/decoration_line.png',
             height: 10,
             fit: .cover,
           ),
@@ -53,21 +53,21 @@ class Footer extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, AppRoutes.about);
                 },
-                child: Text("About", style: TextStyle(color: Colors.black)),
+                child: const Text('About', style: TextStyle(color: Colors.black)),
               ),
 
               TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, AppRoutes.contact);
                 },
-                child: Text("Contact", style: TextStyle(color: Colors.black)),
+                child: const Text('Contact', style: TextStyle(color: Colors.black)),
               ),
 
               TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, AppRoutes.blog);
                 },
-                child: Text("Blog", style: TextStyle(color: Colors.black)),
+                child: const Text('Blog', style: TextStyle(color: Colors.black)),
               ),
             ],
           ),
