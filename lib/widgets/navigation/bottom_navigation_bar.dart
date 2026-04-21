@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:style_sphere/constants/app_colors.dart';
-import 'package:style_sphere/screens/about.dart';
 import 'package:style_sphere/screens/blog_page.dart';
 import 'package:style_sphere/screens/home_page.dart';
 import 'package:style_sphere/screens/products_page.dart';
+import 'package:style_sphere/screens/profile_page.dart';
 
 BottomNavigationBarItem buildNavItem({required String iconPath}) {
   return BottomNavigationBarItem(
@@ -46,7 +46,7 @@ class MainScreenState extends State<MainScreen> {
     const HomePage(),
     const ProductsPage(),
     const BlogPage(),
-    const AboutScreen(),
+    const ProfilePage(),
   ];
 
   void _onItemTapped(int index) {

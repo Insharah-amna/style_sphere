@@ -10,4 +10,5 @@ class AppRoutes {
   static const collectionDetail = '/collection-detail';
   static const blog = '/blog';
   static const blogDetail = '/blog-detail';
+  static const viewOrders = '/view-orders';
 }

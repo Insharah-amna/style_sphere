@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
         AppRoutes.blogDetail: (context) => const BlogDetailPage(),
         AppRoutes.about: (context) => const screen.AboutScreen(),
         AppRoutes.contact: (context) => const ContactUsPage(),
-        '/view-orders': (context) => const OrdersScreen(),
+        AppRoutes.viewOrders: (context) => const OrdersScreen(),
       },
 
       home: StreamBuilder<User?>(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/widgets/navigation/app_bar.dart';
 import 'package:style_sphere/widgets/navigation/cart_drawer.dart';
-import 'package:style_sphere/widgets/navigation/footer.dart';
 import 'package:style_sphere/widgets/navigation/menu_drawer.dart';
 
 class ContactUsPage extends StatelessWidget {
@@ -119,9 +118,7 @@ class ContactUsPage extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 20),
-
-            const Footer(),
+            const SizedBox(height: 50),
           ],
         ),
       ),

@@ -6,12 +6,12 @@ import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/constants/app_routes.dart';
 import 'package:style_sphere/models/products.dart';
 
-final Query products = FirebaseFirestore.instance
-    .collection('products')
-    .where('category', isEqualTo: 'Special')
-    .limit(4);
-
 Future<List<Product>> fetchProducts() async {
+  final Query products = FirebaseFirestore.instance
+      .collection('products')
+      .where('category', isEqualTo: 'Special')
+      .limit(4);
+
   final snapshot = await products.get();
 
   return snapshot.docs.map((doc) {
@@ -41,101 +41,126 @@ class ProductSlider extends StatefulWidget {
 
 class _ProductSliderState extends State<ProductSlider> {
   var _currentIndex = 0;
+  List<Product>? _cachedProducts;
+  bool _isLoading = true;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProducts();
+  }
+
+  Future<void> _loadProducts() async {
+    try {
+      final products = await fetchProducts();
+      setState(() {
+        _cachedProducts = products;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _error = e.toString();
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Product>>(
-      future: fetchProducts(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        }
+    if (_isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
 
-        final specialProducts = snapshot.data ?? [];
+    if (_error != null) {
+      return Center(child: Text('Error: $_error'));
+    }
 
-        return Column(
-          children: [
-            CarouselSlider(
-              options: CarouselOptions(
-                height: 450,
-                viewportFraction: 0.75,
-                enableInfiniteScroll: false,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _currentIndex = index;
-                  });
-                },
+    final specialProducts = _cachedProducts ?? [];
+
+    if (specialProducts.isEmpty) {
+      return const Center(child: Text('No special products available'));
+    }
+
+    return Column(
+      children: [
+        CarouselSlider(
+          options: CarouselOptions(
+            height: 450,
+            viewportFraction: 0.75,
+            enableInfiniteScroll: false,
+            onPageChanged: (index, reason) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+          ),
+          items: specialProducts.map((product) {
+            return GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  AppRoutes.productsDetail,
+                  arguments: product,
+                );
+              },
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 8),
+                child: Column(
+                  spacing: 3,
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl: product.imageUrl,
+                      height: 385,
+                      width: 260,
+                      fit: .cover,
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    ),
+
+                    const SizedBox(height: 2),
+
+                    Text(product.name),
+
+                    Text(
+                      '\$${product.price}',
+                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        color: AppColors.secondary,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              items: specialProducts.map((product) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      AppRoutes.productsDetail,
-                      arguments: product,
-                    );
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Column(
-                      spacing: 3,
-                      children: [
-                        CachedNetworkImage(
-                          imageUrl: product.imageUrl,
-                          height: 385,
-                          width: 260,
-                          fit: .cover,
-                          // placeholder: (context, url) =>
-                          //     const Center(child: CircularProgressIndicator()),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                        ),
+            );
+          }).toList(),
+        ),
 
-                        const SizedBox(height: 2),
+        const SizedBox(height: 16),
 
-                        Text(product.name),
-
-                        Text(
-                          '\$${product.price}',
-                          style: Theme.of(context).textTheme.labelMedium!
-                              .copyWith(color: AppColors.secondary),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-
-            const SizedBox(height: 16),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: specialProducts.asMap().entries.map((entry) {
-                return Transform.rotate(
-                  angle: 0.785,
-                  child: Container(
-                    width: 6.0,
-                    height: 6.0,
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    decoration: BoxDecoration(
-                      border: _currentIndex != entry.key
-                          ? Border.all(width: 1, color: Colors.grey)
-                          : const .fromBorderSide(.none),
-                      color: _currentIndex != entry.key
-                          ? Colors.white
-                          : Colors.grey,
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-          ],
-        );
-      },
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: specialProducts.asMap().entries.map((entry) {
+            return Transform.rotate(
+              angle: 0.785,
+              child: Container(
+                width: 6.0,
+                height: 6.0,
+                margin: const EdgeInsets.symmetric(horizontal: 4),
+                decoration: BoxDecoration(
+                  border: _currentIndex != entry.key
+                      ? Border.all(width: 1, color: Colors.grey)
+                      : const .fromBorderSide(.none),
+                  color: _currentIndex != entry.key
+                      ? Colors.white
+                      : Colors.grey,
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
     );
   }
 }
