@@ -6,6 +6,15 @@ class ProductRepository {
     'products',
   );
 
+  Future<String> addProduct(Product product) async {
+    try {
+      final docRef = await _products.add(product.toMap());
+      return docRef.id;
+    } catch (e) {
+      throw Exception('Failed to create order: $e');
+    }
+  }
+
   // Fetch products with optional category filter and limit
   Future<List<Product>> fetchProducts({
     String? category,
@@ -13,12 +22,10 @@ class ProductRepository {
   }) async {
     Query query = _products;
 
-    // Apply category filter if provided
     if (category != null && category.isNotEmpty) {
       query = query.where('category', isEqualTo: category);
     }
 
-    // Apply limit
     query = query.limit(limit);
 
     final snapshot = await query.get();

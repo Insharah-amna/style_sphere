@@ -1,18 +1,33 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:style_sphere/constants/app_colors.dart';
+import 'package:style_sphere/models/orders.dart';
 import 'package:style_sphere/models/users.dart';
+import 'package:style_sphere/repositories/order_repository.dart';
 import 'package:style_sphere/repositories/user_repository.dart';
 import 'package:style_sphere/screens/checkout/add_address_screen.dart';
 import 'package:style_sphere/widgets/navigation/app_bar.dart';
 import 'package:style_sphere/widgets/payment_success_dialog.dart';
 
-class PlaceOrderScreen extends StatelessWidget {
-  PlaceOrderScreen({super.key, required this.totalPrice});
+class PlaceOrderScreen extends StatefulWidget {
+  const PlaceOrderScreen({
+    super.key,
+    required this.userId,
+    required this.cartItems,
+    required this.totalPrice,
+  });
 
+  final String userId;
+  final List<CartItemWithProduct> cartItems;
   final double totalPrice;
-  final userId = FirebaseAuth.instance.currentUser?.uid;
+
+  @override
+  State<PlaceOrderScreen> createState() => _PlaceOrderScreenState();
+}
+
+class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
   final userRepo = UserRepository();
+
+  final OrderRepository orderRepository = OrderRepository();
 
   void showPaymentSuccessDialog(BuildContext context) {
     showDialog(
@@ -24,6 +39,34 @@ class PlaceOrderScreen extends StatelessWidget {
     );
   }
 
+  Future<void> _placeOrder() async {
+    try {
+      // Convert each CartItemWithProduct to Map using toMap()
+      final Map<String, dynamic> itemsMap = {
+        for (var item in widget.cartItems) item.productId: item.toMap(),
+      };
+
+      final order = OrdersModel(
+        items: itemsMap,
+        userId: widget.userId,
+        status: 'pending',
+        totalPrice: widget.totalPrice,
+        createdAt: DateTime.now(),
+      );
+
+      await orderRepository.createOrder(order);
+      await userRepo.clearCart(widget.userId);
+
+      if (!mounted) return;
+      showPaymentSuccessDialog(context);
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Failed to place order: $e')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +74,7 @@ class PlaceOrderScreen extends StatelessWidget {
       backgroundColor: AppColors.offWhite,
 
       body: FutureBuilder<UserModel?>(
-        future: userRepo.getUser(userId!),
+        future: userRepo.getUser(widget.userId),
         builder: (context, snapshot) {
           // Loading state
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -125,21 +168,17 @@ class PlaceOrderScreen extends StatelessWidget {
                             TextField(
                               decoration: InputDecoration(
                                 hintText: 'Add shipping address',
-
                                 filled: true,
                                 fillColor: AppColors.inputBg,
-
                                 // light grey background
                                 contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 16,
                                   vertical: 14,
                                 ),
-
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(50),
                                   borderSide: BorderSide.none, // removes border
                                 ),
-
                                 suffixIcon: IconButton(
                                   icon: Image.asset(
                                     'assets/icons/add.png',
@@ -176,20 +215,16 @@ class PlaceOrderScreen extends StatelessWidget {
                             TextField(
                               decoration: InputDecoration(
                                 hintText: 'Pickup at store',
-
                                 filled: true,
                                 fillColor: AppColors.inputBg,
-
                                 contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 16,
                                   vertical: 14,
                                 ),
-
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(50),
                                   borderSide: BorderSide.none,
                                 ),
-
                                 suffixIcon: IconButton(
                                   icon: const Icon(
                                     Icons.keyboard_arrow_down_outlined,
@@ -218,20 +253,16 @@ class PlaceOrderScreen extends StatelessWidget {
                             TextField(
                               decoration: InputDecoration(
                                 hintText: 'Via Cash',
-
                                 filled: true,
                                 fillColor: AppColors.inputBg,
-
                                 contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 16,
                                   vertical: 14,
                                 ),
-
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(50),
                                   borderSide: BorderSide.none,
                                 ),
-
                                 suffixIcon: IconButton(
                                   icon: const Icon(
                                     Icons.keyboard_arrow_down_outlined,
@@ -262,7 +293,7 @@ class PlaceOrderScreen extends StatelessWidget {
                       ),
 
                       Text(
-                        '\$${totalPrice.toStringAsFixed(2)}',
+                        '\$${widget.totalPrice.toStringAsFixed(2)}',
                         style: Theme.of(context).textTheme.labelMedium,
                       ),
                     ],
@@ -273,7 +304,7 @@ class PlaceOrderScreen extends StatelessWidget {
                 // Place Order
                 ElevatedButton(
                   onPressed: () {
-                    showPaymentSuccessDialog(context);
+                    _placeOrder();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,

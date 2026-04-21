@@ -39,7 +39,7 @@ class _ProductDetailState extends State<ProductDetail> {
     final userRepo = UserRepository();
 
     try {
-      await userRepo.addToCart(userId, product.id, 1);
+      await userRepo.addToCart(userId, product.id!, 1);
 
       // ✅ Always check if widget is still mounted before using context
       if (context.mounted) {

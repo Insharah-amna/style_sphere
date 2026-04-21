@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:style_sphere/models/products.dart';
+import 'package:style_sphere/repositories/product_repository.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({super.key});
@@ -18,25 +19,36 @@ class AddProductScreenState extends State<AddProductScreen> {
   final TextEditingController stockController = TextEditingController();
   final TextEditingController ratingController = TextEditingController();
 
-  final CollectionReference products = FirebaseFirestore.instance.collection(
-    'products',
-  );
+  final ProductRepository productRepository = ProductRepository();
 
-  Future<void> addProduct() async {
-    await products.add({
-      'name': nameController.text,
-      'price': double.tryParse(priceController.text) ?? 0,
-      'imageUrl': imageUrlController.text,
-      'category': categoryController.text,
-      'description': descriptionController.text,
-      'discount': int.tryParse(discountController.text) ?? 0,
-      'stock': int.tryParse(stockController.text) ?? 0,
-      'rating': double.tryParse(ratingController.text) ?? 0,
-      'createdAt': FieldValue.serverTimestamp(),
-    });
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Product added successfully!')),
+  Future<void> saveProduct() async {
+    // Validate inputs
+    if (nameController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter product name')),
+      );
+      return;
+    }
+
+    // Create Product object from form data
+    final product = Product(
+      imageUrl: imageUrlController.text,
+      name: nameController.text,
+      description: descriptionController.text,
+      price: double.tryParse(priceController.text) ?? 0,
+      rating: double.tryParse(ratingController.text) ?? 0,
+      category: categoryController.text,
+      stock: int.tryParse(stockController.text) ?? 0,
+      discount: int.tryParse(discountController.text) ?? 0,
     );
+
+    final productId = await productRepository.addProduct(product);
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Product added successfully! ID: $productId')),
+    );
+
     clearFields();
   }
 
@@ -98,7 +110,7 @@ class AddProductScreenState extends State<AddProductScreen> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: addProduct,
+                onPressed: saveProduct,
                 child: const Text('Add Product'),
               ),
             ],
@@ -106,5 +118,18 @@ class AddProductScreenState extends State<AddProductScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    priceController.dispose();
+    imageUrlController.dispose();
+    categoryController.dispose();
+    descriptionController.dispose();
+    discountController.dispose();
+    stockController.dispose();
+    ratingController.dispose();
+    super.dispose();
   }
 }

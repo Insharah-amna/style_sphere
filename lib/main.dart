@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:style_sphere/screens/admin/orders_screen.dart';
 import 'package:style_sphere/screens/splash_screen.dart';
 import 'firebase_options.dart';
 import 'package:style_sphere/constants/app_colors.dart';
@@ -65,6 +66,7 @@ class MyApp extends StatelessWidget {
         AppRoutes.blogDetail: (context) => const BlogDetailPage(),
         AppRoutes.about: (context) => const screen.AboutScreen(),
         AppRoutes.contact: (context) => const ContactUsPage(),
+        '/view-orders': (context) => const OrdersScreen(),
       },
 
       home: StreamBuilder<User?>(

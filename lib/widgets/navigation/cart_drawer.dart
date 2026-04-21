@@ -13,8 +13,6 @@ class CartDrawer extends StatefulWidget {
 }
 
 class _CartDrawerState extends State<CartDrawer> {
-  int selectedTab = 0;
-
   @override
   Widget build(BuildContext context) {
     final userId = FirebaseAuth.instance.currentUser?.uid;
@@ -95,7 +93,6 @@ class _CartDrawerState extends State<CartDrawer> {
                             ],
                           )
                         : ListView.builder(
-                            // shrinkWrap: true,
                             itemCount: cartItems.length,
                             itemBuilder: (context, index) {
                               final item = cartItems[index];
@@ -180,8 +177,11 @@ class _CartDrawerState extends State<CartDrawer> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            PlaceOrderScreen(totalPrice: total),
+                        builder: (context) => PlaceOrderScreen(
+                          userId: userId,
+                          totalPrice: total,
+                          cartItems: cartItems,
+                        ),
                       ),
                     );
                   },

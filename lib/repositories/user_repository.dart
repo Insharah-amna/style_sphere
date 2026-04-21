@@ -83,6 +83,12 @@ class UserRepository {
     await userRef.update({'cart': currentCart});
   }
 
+  Future<void> clearCart(String userId) async {
+    final userRef = _firestore.collection('users').doc(userId);
+
+    await userRef.update({'cart': FieldValue.delete()});
+  }
+
   // Update quantity
   Future<void> updateQuantity(
     String userId,
@@ -181,4 +187,18 @@ class CartItemWithProduct {
   });
 
   double get subtotal => productPrice * quantity;
+
+  // Add this method to convert to Map
+  Map<String, dynamic> toMap() {
+    return {
+      'productId': productId,
+      'quantity': quantity,
+      'productName': productName,
+      'productDesc': productDesc,
+      'productPrice': productPrice,
+      'productImage': productImage,
+      'subtotal': subtotal,
+      'addedAt': addedAt != null ? Timestamp.fromDate(addedAt!) : null,
+    };
+  }
 }
