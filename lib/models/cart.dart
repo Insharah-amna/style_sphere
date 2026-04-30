@@ -1,17 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CartItem {
-  final String id; // Firestore document ID
-  final String productId; // FK → products collection
-  final int quantity;
-  final DateTime? addedAt;
-
   CartItem({
     required this.id,
     required this.productId,
     required this.quantity,
     this.addedAt,
   });
+
+  final String id; // Firestore document ID
+  final String productId; // FK → products collection
+  final int quantity;
+  final DateTime? addedAt;
 
   // Convert Firestore document → CartItem
   factory CartItem.fromDoc(DocumentSnapshot doc) {

@@ -2,14 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:style_sphere/models/cart.dart';
 
 class UserModel {
-  final String id;
-  final String name;
-  final String email;
-  final String? phone;
-  final Address? address;
-  final String? roles;
-  final Map<String, CartItem> cart; // productId -> CartItem
-
   UserModel({
     required this.id,
     required this.name,
@@ -19,6 +11,14 @@ class UserModel {
     this.roles,
     required this.cart,
   });
+
+  final String id;
+  final String name;
+  final String email;
+  final String? phone;
+  final Address? address;
+  final String? roles;
+  final Map<String, CartItem> cart; // productId -> CartItem
 
   // Convert Firestore document → UserModel
   factory UserModel.fromDoc(DocumentSnapshot doc) {

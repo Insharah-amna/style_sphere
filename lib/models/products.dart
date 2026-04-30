@@ -1,16 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Product {
-  final String? id;
-  final String imageUrl;
-  final String name;
-  final String description;
-  final double price;
-  final double rating;
-  final String category;
-  final int stock;
-  final int discount;
-
   const Product({
     this.id,
     required this.imageUrl,
@@ -22,6 +12,16 @@ class Product {
     required this.stock,
     required this.discount,
   });
+
+  final String? id;
+  final String imageUrl;
+  final String name;
+  final String description;
+  final double price;
+  final double rating;
+  final String category;
+  final int stock;
+  final int discount;
 
   // Create Product from Firestore document
   factory Product.fromDoc(DocumentSnapshot doc) {

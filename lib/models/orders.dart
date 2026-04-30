@@ -1,13 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class OrdersModel {
-  final String? orderId;
-  final String userId;
-  final Map<String, dynamic> items;
-  final double totalPrice;
-  final String status;
-  final DateTime? createdAt;
-
   OrdersModel({
     this.orderId,
     required this.userId,
@@ -16,6 +9,13 @@ class OrdersModel {
     required this.status,
     this.createdAt,
   });
+
+  final String? orderId;
+  final String userId;
+  final Map<String, dynamic> items;
+  final double totalPrice;
+  final String status;
+  final DateTime? createdAt;
 
   factory OrdersModel.fromDoc(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;

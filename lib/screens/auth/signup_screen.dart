@@ -43,7 +43,7 @@ class _SignupScreenState extends State<SignupScreen> {
       _showError('All fields are required.');
       return;
     }
-    if (!email.contains('@')) {
+    if (!email.contains('@') || !email.contains('.com')) {
       _showError('Please enter a valid email address.');
       return;
     }
