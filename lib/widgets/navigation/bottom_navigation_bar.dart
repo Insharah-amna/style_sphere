@@ -4,7 +4,7 @@ import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/screens/blog_page.dart';
 import 'package:style_sphere/screens/home_page.dart';
 import 'package:style_sphere/screens/products_page.dart';
-import 'package:style_sphere/screens/profile_page.dart';
+import 'package:style_sphere/screens/profile/profile_page.dart';
 
 BottomNavigationBarItem buildNavItem({required String iconPath}) {
   return BottomNavigationBarItem(
@@ -42,6 +42,8 @@ class MainScreen extends StatefulWidget {
 class MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
+  late PageController _pageController;
+
   final List<Widget> _pages = [
     const HomePage(),
     const ProductsPage(),
@@ -60,8 +62,6 @@ class MainScreenState extends State<MainScreen> {
       _selectedIndex = index;
     });
   }
-
-  late PageController _pageController;
 
   @override
   void initState() {

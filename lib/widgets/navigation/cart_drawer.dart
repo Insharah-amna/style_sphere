@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:style_sphere/constants/app_colors.dart';
 import 'package:style_sphere/repositories/user_repository.dart';
+import 'package:style_sphere/screens/auth/login_screen.dart';
 import 'package:style_sphere/screens/checkout/place_order_screen.dart';
 
 class CartDrawer extends StatefulWidget {
@@ -16,12 +17,12 @@ class _CartDrawerState extends State<CartDrawer> {
   @override
   Widget build(BuildContext context) {
     final userId = FirebaseAuth.instance.currentUser?.uid;
-    // if (userId == null) return const LoginRedirect();
+    if (userId == null) return const LoginScreen();
 
     final userRepo = UserRepository();
 
     return StreamBuilder<List<CartItemWithProduct>>(
-      stream: userRepo.watchCart(userId!), // Stream, not Future
+      stream: userRepo.watchCart(userId), // Stream, not Future
       builder: (context, snapshot) {
         // Loading state
         if (snapshot.connectionState == ConnectionState.waiting) {

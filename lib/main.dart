@@ -13,8 +13,8 @@ import 'package:style_sphere/screens/collection_detail.dart';
 import 'package:style_sphere/screens/products_page.dart' as screen;
 import 'package:style_sphere/screens/product_detail.dart';
 import 'package:style_sphere/screens/blog_page.dart' as screen;
-import 'package:style_sphere/screens/about.dart' as screen;
-import 'package:style_sphere/screens/contact_us.dart';
+import 'package:style_sphere/screens/profile/about.dart' as screen;
+import 'package:style_sphere/screens/profile/contact_us.dart';
 import 'package:style_sphere/widgets/navigation/bottom_navigation_bar.dart';
 
 void main() async {

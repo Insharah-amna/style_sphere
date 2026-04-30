@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:style_sphere/models/products.dart';
+import 'package:style_sphere/repositories/network_helper.dart';
 
 class ProductRepository {
   final CollectionReference _products = FirebaseFirestore.instance.collection(
@@ -20,6 +21,10 @@ class ProductRepository {
     String? category,
     int limit = 10,
   }) async {
+    if (!await NetworkHelper.isConnected()) {
+      throw Exception('No internet connection. Please check your network.');
+    }
+
     Query query = _products;
 
     if (category != null && category.isNotEmpty) {

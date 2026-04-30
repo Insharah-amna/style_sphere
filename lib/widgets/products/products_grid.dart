@@ -3,7 +3,7 @@ import 'package:style_sphere/models/products.dart';
 import 'package:style_sphere/widgets/products/product_card.dart';
 import 'package:style_sphere/repositories/product_repository.dart';
 
-class ProductGrid extends StatelessWidget {
+class ProductGrid extends StatefulWidget {
   final String? category;
   final int limit;
   final bool isGrid;
@@ -25,6 +25,11 @@ class ProductGrid extends StatelessWidget {
     this.searchQuery = '',
   });
 
+  @override
+  State<ProductGrid> createState() => _ProductGridState();
+}
+
+class _ProductGridState extends State<ProductGrid> {
   @override
   Widget build(BuildContext context) {
     final productRepo = ProductRepository();
@@ -50,22 +55,50 @@ class ProductGrid extends StatelessWidget {
     }
 
     return FutureBuilder<List<Product>>(
-      future: productRepo.fetchProducts(category: category, limit: limit),
+      future: productRepo.fetchProducts(
+        category: widget.category,
+        limit: widget.limit,
+      ),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         }
+        // if (snapshot.hasError) {
+        //   return Center(child: Text('Error: ${snapshot.error}'));
+        // }
+
         if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.wifi_off, size: 64, color: Colors.grey),
+                const SizedBox(height: 16),
+                Text(
+                  snapshot.error.toString().contains('internet')
+                      ? 'No internet connection'
+                      : 'Something went wrong',
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
+                ),
+                const SizedBox(height: 16),
+                // Retry button
+                TextButton(
+                  onPressed: () => setState(() {}),
+                  // rebuilds widget, retries Future
+                  child: const Text('Retry'),
+                ),
+              ],
+            ),
+          );
         }
 
         final products = snapshot.data ?? [];
 
         // Filter products based on search query
-        final filteredProducts = filterProducts(products, searchQuery);
+        final filteredProducts = filterProducts(products, widget.searchQuery);
 
         // Show no results message
-        if (filteredProducts.isEmpty && searchQuery.isNotEmpty) {
+        if (filteredProducts.isEmpty && widget.searchQuery.isNotEmpty) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -73,7 +106,7 @@ class ProductGrid extends StatelessWidget {
                 const Icon(Icons.search_off, size: 64, color: Colors.grey),
                 const SizedBox(height: 16),
                 Text(
-                  'No products found for "$searchQuery"',
+                  'No products found for "${widget.searchQuery}"',
                   style: const TextStyle(fontSize: 16, color: Colors.grey),
                 ),
               ],
@@ -81,21 +114,21 @@ class ProductGrid extends StatelessWidget {
           );
         }
 
-        if (isGrid) {
+        if (widget.isGrid) {
           return GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: filteredProducts.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: crossAxisCount,
-              mainAxisSpacing: spacing,
-              crossAxisSpacing: spacing,
-              childAspectRatio: aspectRatio,
+              crossAxisCount: widget.crossAxisCount,
+              mainAxisSpacing: widget.spacing,
+              crossAxisSpacing: widget.spacing,
+              childAspectRatio: widget.aspectRatio,
             ),
             itemBuilder: (context, index) {
               return ProductGridCard(
                 product: filteredProducts[index],
-                isCollectionCard: isCollectionCard,
+                isCollectionCard: widget.isCollectionCard,
               );
             },
           );
@@ -106,7 +139,7 @@ class ProductGrid extends StatelessWidget {
             itemCount: filteredProducts.length,
             itemBuilder: (context, index) {
               return Padding(
-                padding: EdgeInsets.only(bottom: spacing),
+                padding: EdgeInsets.only(bottom: widget.spacing),
                 child: ProductListCard(product: filteredProducts[index]),
               );
             },
